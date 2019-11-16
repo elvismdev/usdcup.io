@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}">
-    <head>
-        <title>{% block title %}{{ platform_name }}{% endblock %}</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+	<title>{% block title %}{{ platform_name }}{% endblock %}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+	{% block stylesheets %}
+		{{ encore_entry_link_tags('app') }}
+	{% endblock %}
+</head>
+<body class="is-preload">
+	{% block body %}{% endblock %}
+
+		<!-- Footer -->
+		<footer id="footer">
+			<ul class="icons">
+				<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+				<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+				<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+			</ul>
+			<ul class="copyright">
+				<li>&copy; Untitled.</li>
+				<li>Credits: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</footer>
+
+{% block javascripts %}{% endblock %}
+</body>
 </html>
