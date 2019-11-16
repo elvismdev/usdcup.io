@@ -10,7 +10,8 @@
 		<h1>{{ platform_name }}</h1>
 
 		<p>
-			<strong>$1.00 USD</strong> in Cuba today has an average price of <strong>${{ average_price }} CUC</strong> (in the informal market).
+			<strong>$1.00 USD</strong> in Cuba today has an average price of <strong>${{ average_price }} CUC</strong>
 		</p>
+		<p><i>(calculated from the informal market prices listed on <a target="_blank" href="{{ search_page_url }}?q={{ search_text }}&min_price={{ min_price }}&max_price={{ max_price }}">revolico.com</a>)</i></p>
 	</div>
 {% endblock %}
