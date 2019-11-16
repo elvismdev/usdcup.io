@@ -4,3 +4,7 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
        platform_name: '%platform_name%'
+       search_page_url: '%search_page_url%'
+       search_text: '%search_text%'
+       min_price: '%min_price%'
+       max_price: '%max_price%'
