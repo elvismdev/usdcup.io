@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app.request.locale }}">
     <head>
-        <meta charset="UTF-8">
         <title>{% block title %}{{ platform_name }}{% endblock %}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
