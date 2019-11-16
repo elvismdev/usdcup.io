@@ -9,6 +9,7 @@ parameters:
     search_text: 'usd'
     min_price: 0
     max_price: 2
+    platform_name: 'USDCUC.info' 
 
 
 services:
