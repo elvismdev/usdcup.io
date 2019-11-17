@@ -21,8 +21,7 @@ class HomeController extends AbstractController
     	$response = $client->request('GET', $this->getParameter('search_page_url'), [
     		// Set request headers.
     		'headers' => [
-    			'User-Agent' => $this->getParameter('user_agent'),
-    			// 'Content-Type' => 'text/html'
+    			'User-Agent' => $this->getParameter('user_agent')
     		],
 
     		// Set search parameters. These values are automatically encoded before including them in the URL
@@ -55,7 +54,6 @@ class HomeController extends AbstractController
 
     		// Calculate the average price.
 			$averagePrice = array_sum($pricesList) / count($pricesList);
-
     	}
 
     	return $this->render('home/index.html.twig', [

@@ -1,12 +1,39 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}{{ platform_name }}{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+<html lang="{{ app.request.locale }}">
+<head>
+	<title>{% block title %}{{ platform_name }}{% endblock %}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+	{% block stylesheets %}
+		{{ encore_entry_link_tags('app') }}
+	{% endblock %}
+</head>
+<body class="is-preload">
+	{% block body %}{% endblock %}
+
+		<!-- Footer -->
+		<footer id="footer">
+			<ul class="icons">
+				<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="https://github.com/elvismdev/usdcuc.info" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+				<li><a href="#" class="icon solid fa-info"><span class="label">About</span></a></li>
+				<li><a href="mailto:hi@usdcuc.info" class="icon fa-envelope"><span class="label">Email</span></a></li>
+			</ul>
+			<ul class="copyright">
+				<li>&copy; <span id="current-year"></span> <a target="_blank" href="https://parenthesis.io">Parenthesis Tech LLC.</a></li>
+				<li>Dev: <a target="_blank" href="https://twitter.com/n3rdh4ck3r">@n3rdh4ck3r</a></li>
+				<li>Design: <a target="_blank" href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</footer>
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+			<script type="text/javascript">
+				var d = new Date();
+				var currentYear = d.getFullYear();
+				document.getElementById("current-year").innerHTML = currentYear;
+			</script>
+		{% endblock %}
+	</body>
+	</html>
