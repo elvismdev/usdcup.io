@@ -19,7 +19,7 @@ class HomeController extends AbstractController
 
 
     /**
-     * @Route("/api/get_average_price", name="get_average_price", methods={"GET"}, defaults={"_format": "json"}, options={"expose"=true})
+     * @Route("/api/get_average_price", name="get_average_price", methods={"GET"}, defaults={"_format": "json"})
      */
     public function getAveragePrice()
     {

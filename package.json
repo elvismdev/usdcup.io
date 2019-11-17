@@ -3,6 +3,7 @@
         "@fortawesome/fontawesome-free": "^5.11.2",
         "@symfony/webpack-encore": "^0.28.0",
         "core-js": "^3.0.0",
+        "countup.js": "^2.0.4",
         "node-sass": "^4.13.0",
         "regenerator-runtime": "^0.13.2",
         "sass-loader": "^7.0.1",
