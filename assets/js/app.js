@@ -47,6 +47,7 @@ const { CountUp } = require('countup.js');
 
 
 	var	$body = document.querySelector('body');
+	var $loadingParagraph = document.getElementById('loading-p');
 
 	// Methods/polyfills.
 
@@ -72,6 +73,9 @@ const { CountUp } = require('countup.js');
 		let avPriceElement = document.getElementById('average-price');
 		fetchAsync('api/get_average_price')
 		.then(function(data) {
+			// Remove loading dots.
+			$loadingParagraph.classList.remove('loading-dots');
+			
 			// Count up from 0 and display value.
 			countUp(avPriceElement, data.average_price);
 		})
