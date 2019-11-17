@@ -16,18 +16,24 @@
 		<footer id="footer">
 			<ul class="icons">
 				<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-				<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-				<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-				<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+				<li><a href="https://github.com/elvismdev/usdcuc.info" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+				<li><a href="#" class="icon solid fa-info"><span class="label">About</span></a></li>
+				<li><a href="mailto:hi@usdcuc.info" class="icon fa-envelope"><span class="label">Email</span></a></li>
 			</ul>
 			<ul class="copyright">
-				<li>&copy; Untitled.</li>
-				<li>Credits: <a href="http://html5up.net">HTML5 UP</a></li>
+				<li>&copy; <span id="current-year"></span> <a target="_blank" href="https://parenthesis.io">Parenthesis Tech LLC.</a></li>
+				<li>Dev: <a target="_blank" href="https://twitter.com/n3rdh4ck3r">@n3rdh4ck3r</a></li>
+				<li>Design: <a target="_blank" href="http://html5up.net">HTML5 UP</a></li>
 			</ul>
 		</footer>
 
-{% block javascripts %}
-	{{ encore_entry_script_tags('app') }}
-{% endblock %}
-</body>
-</html>
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+			<script type="text/javascript">
+				var d = new Date();
+				var currentYear = d.getFullYear();
+				document.getElementById("current-year").innerHTML = currentYear;
+			</script>
+		{% endblock %}
+	</body>
+	</html>
