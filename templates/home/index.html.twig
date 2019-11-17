@@ -5,9 +5,9 @@
 	<header id="header">
 		<h1>{{ platform_name }}</h1>
 		<p>
-			<strong>$1.00 USD</strong> in Cuba today has an average price of <strong>${{ average_price }} CUC</strong>
+			<strong>$1.00 USD</strong> {{ 'average_price_result'|trans }} <strong>${{ average_price }} CUC</strong>
 		</p>
-		<p><i>(calculated from the informal market prices listed on <a target="_blank" href="{{ search_page_url }}?q={{ search_text }}&min_price={{ min_price }}&max_price={{ max_price }}">revolico.com</a>)</i></p>
+		<p class="calculation-note"><em>({{ 'calculation_note'|trans }} <a target="_blank" href="{{ search_page_url }}?q={{ search_text }}&min_price={{ min_price }}&max_price={{ max_price }}">revolico.com/compra-venta/divisas/</a>)</em></p>
 	</header>
 
 {% endblock %}
