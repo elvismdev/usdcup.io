@@ -8,6 +8,9 @@
 // any CSS you require will output into a single css file (app.css in this case)
 require('../sass/main.scss');
 require('../css/app.css');
+const { CountUp } = require('countup.js');
+
+// import CountUp from 'countup.js';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // const $ = require('jquery');
@@ -16,24 +19,69 @@ require('../css/app.css');
 
 	"use strict";
 
+	// Define an async function
+	async function fetchAsync (endpoint) {
+		let uri = '/';
+		uri += endpoint;
+		let response = await fetch(uri, {
+			method:'GET'
+		});
+		let data = await response.json();
+		return data;
+	}
+
+	// Define countUp function.
+	function countUp(e, end) {
+		const options = {
+			  startVal: 0.00,
+			  decimalPlaces: 2,
+		};
+
+		var countUp = new CountUp(e, end, options);
+		if (!countUp.error) {
+			countUp.start();
+		} else {
+			  console.error(countUp.error);
+		}
+	}
+
+
 	var	$body = document.querySelector('body');
+	var $loadingParagraph = document.getElementById('loading-p');
 
 	// Methods/polyfills.
 
-		// classList | (c) @remy | github.com/remy/polyfills | rem.mit-license.org
-		!function(){function t(t){this.el=t;for(var n=t.className.replace(/^\s+|\s+$/g,"").split(/\s+/),i=0;i<n.length;i++)e.call(this,n[i])}function n(t,n,i){Object.defineProperty?Object.defineProperty(t,n,{get:i}):t.__defineGetter__(n,i)}if(!("undefined"==typeof window.Element||"classList"in document.documentElement)){var i=Array.prototype,e=i.push,s=i.splice,o=i.join;t.prototype={add:function(t){this.contains(t)||(e.call(this,t),this.el.className=this.toString())},contains:function(t){return-1!=this.el.className.indexOf(t)},item:function(t){return this[t]||null},remove:function(t){if(this.contains(t)){for(var n=0;n<this.length&&this[n]!=t;n++);s.call(this,n,1),this.el.className=this.toString()}},toString:function(){return o.call(this," ")},toggle:function(t){return this.contains(t)?this.remove(t):this.add(t),this.contains(t)}},window.DOMTokenList=t,n(Element.prototype,"classList",function(){return new t(this)})}}();
+	// classList | (c) @remy | github.com/remy/polyfills | rem.mit-license.org
+	!function(){function t(t){this.el=t;for(var n=t.className.replace(/^\s+|\s+$/g,"").split(/\s+/),i=0;i<n.length;i++)e.call(this,n[i])}function n(t,n,i){Object.defineProperty?Object.defineProperty(t,n,{get:i}):t.__defineGetter__(n,i)}if(!("undefined"==typeof window.Element||"classList"in document.documentElement)){var i=Array.prototype,e=i.push,s=i.splice,o=i.join;t.prototype={add:function(t){this.contains(t)||(e.call(this,t),this.el.className=this.toString())},contains:function(t){return-1!=this.el.className.indexOf(t)},item:function(t){return this[t]||null},remove:function(t){if(this.contains(t)){for(var n=0;n<this.length&&this[n]!=t;n++);s.call(this,n,1),this.el.className=this.toString()}},toString:function(){return o.call(this," ")},toggle:function(t){return this.contains(t)?this.remove(t):this.add(t),this.contains(t)}},window.DOMTokenList=t,n(Element.prototype,"classList",function(){return new t(this)})}}();
 
-		// canUse
-		window.canUse=function(p){if(!window._canUse)window._canUse=document.createElement("div");var e=window._canUse.style,up=p.charAt(0).toUpperCase()+p.slice(1);return p in e||"Moz"+up in e||"Webkit"+up in e||"O"+up in e||"ms"+up in e};
+	// canUse
+	window.canUse=function(p){if(!window._canUse)window._canUse=document.createElement("div");var e=window._canUse.style,up=p.charAt(0).toUpperCase()+p.slice(1);return p in e||"Moz"+up in e||"Webkit"+up in e||"O"+up in e||"ms"+up in e};
 
-		// window.addEventListener
-		(function(){if("addEventListener"in window)return;window.addEventListener=function(type,f){window.attachEvent("on"+type,f)}})();
+	// window.addEventListener
+	(function(){if("addEventListener"in window)return;window.addEventListener=function(type,f){window.attachEvent("on"+type,f)}})();
 
-	// Play initial animations on page load.
+	// Do stuff after page is fully loaded.
 	window.addEventListener('load', function() {
+		// Play initial animations on page load.
 		window.setTimeout(function() {
 			$body.classList.remove('is-preload');
 		}, 100);
+
+
+
+		// Get and display Average Price.
+		let avPriceElement = document.getElementById('average-price');
+		fetchAsync('api/get_average_price')
+		.then(function(data) {
+			// Remove loading dots.
+			$loadingParagraph.classList.remove('loading-dots');
+			
+			// Count up from 0 and display value.
+			countUp(avPriceElement, data.average_price);
+		})
+		.catch(function(error) {
+			console.log(error);
+		});
 	});
 
 	// Slideshow Background.
@@ -176,4 +224,4 @@ require('../css/app.css');
 
 	// 	})();
 
-	})();
+})();
