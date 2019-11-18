@@ -3,11 +3,9 @@
 {% block body %}
 	<!-- Header -->
 	<header id="header">
-		<h1>{{ platform_name }}</h1>
-		<p id="loading-p" class="loading-dots">
-			<strong>$1.00 USD</strong> {{ 'average_price_result'|trans }} <strong>$<span id="average-price">0.00</span> CUC</strong>
-		</p>
-		<p class="calculation-note"><em>({{ 'calculation_note'|trans }} <a target="_blank" href="{{ search_page_url }}?q={{ search_text }}&min_price={{ min_price }}&max_price={{ max_price }}">revolico.com/compra-venta/divisas/</a>)</em></p>
+		<h2 id="loading-p" class="loading-dots">$1.00 USD {{ 'average_price_result'|trans }} $<span id="average-price">0.00</span> CUC</h2>
+
+		<p class="calculation-note"><em>{{ 'calculation_note'|trans }} <a target="_blank" href="{{ search_page_url }}?q={{ search_text }}&min_price={{ min_price }}&max_price={{ max_price }}">revolico.com/compra-venta/divisas/</a></em></p>
 	</header>
 
 {% endblock %}
