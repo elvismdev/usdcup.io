@@ -2,6 +2,7 @@ average_price_result: 'in Cuba today has an average price of'
 calculation_note: 'according to the last 100 ads found in'
 copyright_design: 'Design'
 how_it_works: 'How it Works'
+close_btn: 'Close'
 how_it_works_desc: |
   <p>Similar to how you would do it from your browser, <strong>USDCUC.info</strong> search the last 100 ads listed in the currency purchase and sale category on <strong>revolico.com</strong> that contain the word <em>USD</em> and within the price range of <em>$0 - $2</em> CUC.</p>
 
