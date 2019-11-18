@@ -2,6 +2,7 @@ average_price_result: 'en Cuba hoy tiene un precio promedio de'
 calculation_note: '* según los últimos 100 anuncios encontrados en'
 copyright_design: 'Diseño'
 how_it_works: 'Cómo Funciona'
+close_btn: 'Cerrar'
 how_it_works_desc: |
   <p>Similar a como lo harías desde tu navegador, <strong>USDCUC.info</strong> busca los últimos 100 anuncios listados en la categoría de compra y venta de divisas en <strong>revolico.com</strong> que contienen la palabra <em>USD</em> y dentro del rango de precios de <em>$0 - $2</em> CUC.</p>
 

@@ -77,10 +77,10 @@
 
   .modal__btn {
     font-size: .875rem;
-    // padding-left: 1rem;
-    // padding-right: 1rem;
-    // padding-top: .5rem;
-    // padding-bottom: .5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
     background-color: #000;
     color: rgba(0,0,0,.8);
     border-radius: .25rem;
@@ -90,7 +90,7 @@
     -webkit-appearance: button;
     text-transform: none;
     overflow: visible;
-    // line-height: 1.15;
+    line-height: 1.15;
     margin: 0;
     will-change: transform;
     -moz-osx-font-smoothing: grayscale;
