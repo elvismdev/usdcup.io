@@ -33,3 +33,11 @@
 		.5em 0 0 white;
 	}
 }
+
+
+/* GH Corner fix */
+
+a.github-corner {
+	border-bottom: inherit;
+	position: inherit;
+}
