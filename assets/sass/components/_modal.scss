@@ -25,10 +25,18 @@
     align-items: center;
   }
 
+  .modal__container strong {
+    color: #000;
+  }
+
+  .modal__container code {
+    background: rgba(99, 99, 99, 0.125);
+  }
+
   .modal__container {
     background-color: #fff;
     padding: 30px;
-    max-width: 600px;
+    max-width: 660px;
     max-height: 100vh;
     border-radius: 4px;
     overflow-y: auto;
@@ -68,7 +76,7 @@
   }
 
   .modal__btn {
-    // font-size: .875rem;
+    font-size: .875rem;
     // padding-left: 1rem;
     // padding-right: 1rem;
     // padding-top: .5rem;
