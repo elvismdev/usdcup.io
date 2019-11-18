@@ -8,7 +8,11 @@
 // any CSS you require will output into a single css file (app.css in this case)
 require('../sass/main.scss');
 require('../css/app.css');
+
+// Require JS libraries.
 const { CountUp } = require('countup.js');
+// const MicroModal = require('micromodal');
+import MicroModal from 'micromodal';
 
 // import CountUp from 'countup.js';
 
@@ -44,6 +48,10 @@ const { CountUp } = require('countup.js');
 			  console.error(countUp.error);
 		}
 	}
+
+
+	// Initialize MicroModal.
+	MicroModal.init();
 
 
 	var	$body = document.querySelector('body');

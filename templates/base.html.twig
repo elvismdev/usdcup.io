@@ -11,7 +11,7 @@
 </head>
 <body class="is-preload">
 
-	{# Include the GH corner #}
+	{# GH Corner #}
 	{% include 'components/gh-corner.html.twig' %}
 
 	{% block body %}{% endblock %}
@@ -22,7 +22,7 @@
 				<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 				<li><a href="{{ gh_repo_url }}" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
 				<li><a href="mailto:hi@usdcuc.info" class="icon fa-envelope"><span class="label">Email</span></a></li>
-				<li><a href="#">{{ 'how_it_works'|trans }} <i class="fas fa-question"></i></a></li>
+				<li><a href="javascript:;" data-micromodal-trigger="modal-1">{{ 'how_it_works'|trans }} <i class="fas fa-question"></i></a></li>
 				{# <li><a href="{{ path('get_average_price') }}">API</a></li> #}
 			</ul>
 			<ul class="copyright">
@@ -31,6 +31,11 @@
 				<li>{{ 'copyright_design'|trans }}: <a target="_blank" href="http://html5up.net">HTML5 UP</a></li>
 			</ul>
 		</footer>
+
+
+		{# Modal #}
+		{% include 'components/modal.html.twig' %}
+
 
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}
