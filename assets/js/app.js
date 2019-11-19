@@ -35,10 +35,10 @@ import MicroModal from 'micromodal';
 	}
 
 	// Define countUp function.
-	function countUp(e, end) {
+	function countUp(e, start, end, decimalPlaces) {
 		const options = {
-			  startVal: 0.00,
-			  decimalPlaces: 2,
+			  startVal: start,
+			  decimalPlaces: decimalPlaces,
 		};
 
 		var countUp = new CountUp(e, end, options);
@@ -79,13 +79,17 @@ import MicroModal from 'micromodal';
 
 		// Get and display Average Price.
 		let avPriceElement = document.getElementById('average-price');
+		let adsQtyElement = document.getElementById('ads-qty');
 		fetchAsync('api/get_average_price')
 		.then(function(data) {
 			// Remove loading dots.
 			$loadingParagraph.classList.remove('loading-dots');
 			
 			// Count up from 0 and display value.
-			countUp(avPriceElement, data.average_price);
+			countUp(avPriceElement, 0.00, data.average_price, 2);
+
+			// Count down from 100.
+			countUp(adsQtyElement, 100, data.total_ads_evaluated, 0);
 		})
 		.catch(function(error) {
 			console.log(error);

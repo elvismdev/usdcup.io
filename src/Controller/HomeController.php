@@ -60,8 +60,29 @@ class HomeController extends AbstractController
             // Send HTML to crawler.
             $crawler = new Crawler($content);
 
-            // Obtain from all the HTML page only the ads prices.
-            $adsPricesElement = $crawler->filter('span[data-cy="adPrice"]');
+            // Get banned words from settings.
+            $bannedWords = $this->getParameter('banned_words');
+
+            // Obtain all the ads <li> rows.
+            $adRowElements = $crawler
+            ->filter('li[data-cy="adRow"]')
+            // Exclude Ads with banned words in the title.
+            ->reduce(function (Crawler $node, $i) use ($bannedWords) {
+                // Get the adTitle element.
+                $adTitleElement = $node->filter('span[data-cy="adTitle"]');
+
+                // Check if Ad title contains banned words.
+                if ($this->striposa($adTitleElement->html(), $bannedWords) === false) {
+                    // Include this Ad, it seems to NOT have banned word in his title.
+                    return true;
+                } else {
+                    // Do not include this Ad, it seems it has a banned word in his title.
+                    return false;
+                }
+            });
+
+            // Get the ads prices elements.
+            $adsPricesElement = $adRowElements->filter('span[data-cy="adPrice"]');
 
             // Add all available prices to a single array list.
             $pricesList = [];
@@ -70,14 +91,34 @@ class HomeController extends AbstractController
                 $pricesList[] = str_replace(' cuc - ', '', $domElement->nodeValue);
             }
 
+            // Set the total prices collected.
+            $pricesQty = count($pricesList);
+
             // Calculate the average price.
-            $averagePrice = array_sum($pricesList) / count($pricesList);
+            $averagePrice = array_sum($pricesList) / $pricesQty;
 
             return $this->json([
                 'success'               => true,
                 'remote_status_code'    => $statusCode,
-                'average_price'         => (float) number_format($averagePrice, 2, '.', '')
+                'average_price'         => (float) number_format($averagePrice, 2, '.', ''),
+                'total_ads_evaluated'   => $pricesQty
             ]);
         }
+    }
+
+
+    /**
+     * Custom stripos() function to find multiple needles in one haystack.
+     * @param string $haystack
+     * @param array $needle
+     * @param bool $offset
+     * @return bool
+     */
+    private function striposa($haystack, $needle, $offset=0) {
+        if(!is_array($needle)) $needle = array($needle);
+        foreach($needle as $query) {
+            if(stripos($haystack, $query, $offset) !== false) return true;
+        }
+        return false;
     }
 }
