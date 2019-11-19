@@ -1,5 +1,5 @@
 average_price_result: '≈'
-calculation_note: '* según los últimos 100 anuncios encontrados en'
+calculation_note: '* según los últimos <span id="ads-qty">100</span> anuncios encontrados en'
 copyright_design: 'Diseño'
 how_it_works: 'Cómo Funciona'
 close_btn: 'Cerrar'

@@ -70,13 +70,17 @@ class HomeController extends AbstractController
                 $pricesList[] = str_replace(' cuc - ', '', $domElement->nodeValue);
             }
 
+            // Set the total prices collected.
+            $pricesQty = count($pricesList);
+
             // Calculate the average price.
-            $averagePrice = array_sum($pricesList) / count($pricesList);
+            $averagePrice = array_sum($pricesList) / $pricesQty;
 
             return $this->json([
                 'success'               => true,
                 'remote_status_code'    => $statusCode,
-                'average_price'         => (float) number_format($averagePrice, 2, '.', '')
+                'average_price'         => (float) number_format($averagePrice, 2, '.', ''),
+                'total_ads_evaluated'   => $pricesQty
             ]);
         }
     }
