@@ -47,3 +47,8 @@ a.github-corner {
 .hiw-collapsed.card {
 	border: inherit;
 }
+
+.card-body,
+.card-body strong {
+	color: #000;
+}
