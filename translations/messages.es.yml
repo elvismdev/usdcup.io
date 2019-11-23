@@ -8,6 +8,6 @@ how_it_works_desc: |
 
   <p>Luego, suma todos los precios de cada anuncio y divide ese total entre 100 para obtener un precio promedio único.</p> 
 
-  <p><code>SUM( $precios ) / TOTAL( $anuncios ) = $promedio</code></p>
+  <p><code>$promedio = SUM( $precios ) / TOTAL( $anuncios )</code></p>
 
   <p>Este simple algoritmo basado en los anuncios más recientes de Revolico, permite visualizar sobre que precio se encuentra actualmente el cambio del CUC vs USD en el mercado informal cubano <em>(la calle)</em>.</p>
