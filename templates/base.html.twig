@@ -22,9 +22,19 @@
 				<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 				<li><a href="{{ gh_repo_url }}" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
 				<li><a href="mailto:hi@usdcuc.info" class="icon fa-envelope"><span class="label">Email</span></a></li>
-				<li><a href="javascript:;" data-micromodal-trigger="modal-1">{{ 'how_it_works'|trans }} <i class="fas fa-question"></i></a></li>
+				<li><a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">{{ 'how_it_works'|trans }} <i class="fas fa-question"></i></a></li>
 				{# <li><a href="{{ path('get_average_price') }}">API</a></li> #}
 			</ul>
+
+			{# How it Works Collapsible panel #}
+			<div class="hiw-collapsed card">
+				<div class="collapse" id="collapseExample">
+					<div class="card-body">
+						{{ 'how_it_works_desc'|trans|raw }}
+					</div>
+				</div>
+			</div>
+
 			<ul class="copyright">
 				<li>&copy; <span id="current-year"></span> <a href="{{ path('home') }}">{{ platform_name }}</a></li>
 				<li>Dev: <a target="_blank" href="https://twitter.com/n3rdh4ck3r">@n3rdh4ck3r</a></li>
@@ -34,7 +44,7 @@
 
 
 		{# Modal #}
-		{% include 'components/modal.html.twig' %}
+		{# {% include 'components/modal.html.twig' %} #}
 
 
 		{% block javascripts %}

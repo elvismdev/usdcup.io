@@ -39,10 +39,21 @@
 	@import 'components/icons';
 	@import 'components/form';
 	@import 'components/button';
-	@import 'components/modal';
+	// @import 'components/modal';
 
 // Layout.
 
 	@import 'layout/header';
 	@import 'layout/signup-form';
 	@import 'layout/footer';
+
+
+	// Bootstrap Collapse
+	@import "~bootstrap/scss/functions";
+	@import "~bootstrap/scss/variables";
+	@import "~bootstrap/scss/mixins/transition";
+	@import "~bootstrap/scss/mixins/border-radius";
+	@import "~bootstrap/scss/mixins/hover";
+	@import "~bootstrap/scss/mixins/breakpoints";
+	@import "~bootstrap/scss/transitions";
+	@import "~bootstrap/scss/card";
