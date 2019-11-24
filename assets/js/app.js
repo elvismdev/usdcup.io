@@ -11,14 +11,13 @@ require('../css/app.css');
 
 // Require JS libraries.
 const { CountUp } = require('countup.js');
-
-// Include Bootstrap Collapse JS.
-import 'bootstrap/js/dist/collapse';
+// const MicroModal = require('micromodal');
+import MicroModal from 'micromodal';
 
 // import CountUp from 'countup.js';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-const $ = require('jquery');
+// const $ = require('jquery');
 
 (function() {
 
@@ -50,20 +49,9 @@ const $ = require('jquery');
 		}
 	}
 
-	// Animate scroll to collapse.
-	$('.collapse').on('show.bs.collapse', function(e) {
-		var $card = $(this).closest('.card');
-		var $open = $($(this).data('parent')).find('.collapse.show');
-		
-		var additionalOffset = 0;
-		if($card.prevAll().filter($open.closest('.card')).length !== 0)
-		{
-			additionalOffset =  $open.height();
-		}
-		$('html,body').animate({
-			scrollTop: $card.offset().top - additionalOffset
-		}, 500);
-	});
+
+	// Initialize MicroModal.
+	MicroModal.init();
 
 
 	var	$body = document.querySelector('body');
