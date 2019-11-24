@@ -6,8 +6,12 @@ close_btn: 'Cerrar'
 how_it_works_desc: |
   <p>Similar a como lo harías desde tu navegador, <strong>USDCUC.info</strong> busca los últimos 100 anuncios listados en la categoría de compra y venta de divisas en <strong>revolico.com</strong> que contienen la palabra <em>USD</em> y dentro del rango de precios de <em>$0 - $2</em> CUC.</p>
 
-  <p>Luego, suma todos los precios de cada anuncio y divide ese total entre 100 para obtener un precio promedio único.</p> 
+  <p>Luego filtra esta lista de anuncios y elimina aquellos que incluyan <a href="%gh_repo_url%/blob/master/config/services.yaml#L15">palabras</a> en su título que sugieran que NO son exclusivamente sobre la VENTA de USD.</p>
 
-  <p><code>SUM( $precios ) / TOTAL( $anuncios ) = $promedio</code></p>
+  <p><code>(compro, envía, euro, canadiense, etc...)</code></p>
 
-  <p>Este simple algoritmo basado en los anuncios más recientes de Revolico, permite visualizar sobre que precio se encuentra actualmente el cambio del CUC vs USD en el mercado informal cubano <em>(la calle)</em>.</p>
+  <p>Finalmente con los anuncios restantes, se obtiene el promedio de todos sus precios publicados.</p> 
+
+  <p><code>$promedio = SUM( $precios ) / TOTAL( $anuncios )</code></p>
+
+  <p><em>Este algoritmo basado en las publicaciones de venta más recientes de Revolico, permitiría visualizar sobre que precio se encuentra actualmente el cambio del CUC vs USD en el mercado informal cubano (la calle). No obstante este resultado no se debe usar como asesoramiento legal, fiscal, de inversión, financiero o de otro tipo. Esta aplicacion web es solo un experimento para fines informativos 🤔💡.</em></p>
