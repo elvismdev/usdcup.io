@@ -14,4 +14,4 @@ how_it_works_desc: |
 
   <p><code>$promedio = SUM( $precios ) / TOTAL( $anuncios )</code></p>
 
-  <p><em>* Este algoritmo basado en las publicaciones de venta más recientes de Revolico, permitiría visualizar sobre que precio se encuentra actualmente el cambio del CUC vs USD en el mercado informal cubano (la calle). No obstante este resultado no se debe usar como asesoramiento legal, fiscal, de inversión, financiero o de otro tipo. Esta aplicacion web es solo un experimento para fines informativos.</em> 🤔💡</p>
+  <p><em>* Este algoritmo basado en las publicaciones de venta más recientes de Revolico, permitiría visualizar sobre que precio se encuentra actualmente el cambio del CUC vs USD en el mercado informal cubano (la calle). No obstante este resultado no se debe usar como asesoramiento legal, fiscal, de inversión, financiero o de otro tipo. Esta aplicacion web es solo un experimento para fines informativos.</em> 💡</p>
