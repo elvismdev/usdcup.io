@@ -30,6 +30,9 @@ parameters:
         - enviamos
         - envio
         - envío
+        - necesito
+        - libra
+        - esterlina
 
 
 services:
