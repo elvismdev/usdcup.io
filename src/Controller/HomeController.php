@@ -100,8 +100,13 @@ class HomeController extends AbstractController
             // Add all available prices to a single array list.
             $pricesList = [];
             foreach ($adsPricesElement as $domElement) {
+                // Continue to next element if Ad price is set in CUP.
+                if (strpos($domElement->nodeValue, 'CUP') !== false) {
+                    continue;
+                }
+
                 // Remove extra non-neded text from prices before adding to the price list.
-                $pricesList[] = str_replace(' cuc - ', '', $domElement->nodeValue);
+                $pricesList[] = str_replace([' cuc - ', ' usd - '], '', $domElement->nodeValue);
             }
 
             // Set the total prices collected.
