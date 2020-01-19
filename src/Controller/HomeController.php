@@ -14,7 +14,7 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-    	return $this->render('home/index.html.twig');
+        return $this->render('home/index.html.twig');
     }
 
 
@@ -26,6 +26,21 @@ class HomeController extends AbstractController
         // Initialize HTTP client.
         $client = HttpClient::create();
 
+        // Get banned words from settings.
+        $bannedWords = $this->getParameter('banned_words');
+
+        // Add ! prefix to banned words for searching.
+        foreach($bannedWords as &$value) {
+            $value = '!' . $value;
+        }
+        unset($value);
+
+        // Create string with banned words.
+        $bannedWordsStr = implode(' ', $bannedWords);
+
+        // Create the full power keyword search text.
+        $searchQuery = '"' . $this->getParameter('search_text') . '" ' . $bannedWordsStr;
+
         // Make an HTTP GET request to https://www.revolico.com/compra-venta/divisas/search.html?q=...&min_price=...&max_price=...
         $response = $client->request('GET', $this->getParameter('search_page_url'), [
             // Set request headers.
@@ -35,7 +50,7 @@ class HomeController extends AbstractController
 
             // Set search parameters. These values are automatically encoded before including them in the URL
             'query' => [
-                'q'         => $this->getParameter('search_text'),
+                'q'         => $searchQuery,
                 'min_price' => $this->getParameter('min_price'),
                 'max_price' => $this->getParameter('max_price'),
             ],
@@ -60,9 +75,6 @@ class HomeController extends AbstractController
             // Send HTML to crawler.
             $crawler = new Crawler($content);
 
-            // Get banned words from settings.
-            $bannedWords = $this->getParameter('banned_words');
-
             // Obtain all the ads <li> rows.
             $adRowElements = $crawler
             ->filter('li[data-cy="adRow"]')
@@ -79,7 +91,8 @@ class HomeController extends AbstractController
                     // Do not include this Ad, it seems it has a banned word in his title.
                     return false;
                 }
-            });
+            })
+            ;
 
             // Get the ads prices elements.
             $adsPricesElement = $adRowElements->filter('span[data-cy="adPrice"]');
@@ -87,8 +100,13 @@ class HomeController extends AbstractController
             // Add all available prices to a single array list.
             $pricesList = [];
             foreach ($adsPricesElement as $domElement) {
+                // Continue to next element if Ad price is set in CUP.
+                if (strpos($domElement->nodeValue, 'CUP') !== false) {
+                    continue;
+                }
+
                 // Remove extra non-neded text from prices before adding to the price list.
-                $pricesList[] = str_replace(' cuc - ', '', $domElement->nodeValue);
+                $pricesList[] = str_replace([' cuc - ', ' usd - '], '', $domElement->nodeValue);
             }
 
             // Set the total prices collected.
