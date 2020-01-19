@@ -9,3 +9,4 @@ twig:
        min_price: '%min_price%'
        max_price: '%max_price%'
        gh_repo_url: '%gh_repo_url%'
+       banned_words: '%banned_words%'
