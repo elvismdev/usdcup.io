@@ -33,6 +33,7 @@ parameters:
         - necesito
         - libra
         - esterlina
+        - entrego
 
 
 services:
