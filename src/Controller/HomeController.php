@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\DomCrawler\Crawler;
+use App\Util\UtilityBox;
 
 class HomeController extends AbstractController
 {
@@ -28,12 +29,7 @@ class HomeController extends AbstractController
 
         // Get banned words from settings.
         $bannedWords = $this->getParameter('banned_words');
-
-        // Add ! prefix to banned words for searching.
-        foreach($bannedWords as &$value) {
-            $value = '!' . $value;
-        }
-        unset($value);
+        $bannedWords = UtilityBox::addExclPrefix($bannedWords);
 
         // Create string with banned words.
         $bannedWordsStr = implode(' ', $bannedWords);
