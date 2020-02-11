@@ -35,6 +35,7 @@ parameters:
         - libra
         - esterlina
         - entrego
+        - doy
 
 
 services:
