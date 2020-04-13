@@ -37,6 +37,8 @@ parameters:
         - esterlina
         - entrego
         - doy
+        - remesa
+        - remesas
 
 
 services:
