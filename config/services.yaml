@@ -36,9 +36,15 @@ parameters:
         - libra
         - esterlina
         - entrego
+        - entrega
         - doy
         - remesa
         - remesas
+        - transfiero
+        - transferencia
+        - credito
+        - depósito
+        - deposito
 
 
 services:
