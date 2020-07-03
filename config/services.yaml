@@ -45,6 +45,7 @@ parameters:
         - credito
         - depósito
         - deposito
+        - pago
 
 
 services:
