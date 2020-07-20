@@ -1,0 +1,4 @@
+google_tag_manager:
+  enabled: true
+  id: '%env(GTM_CONTAINER_ID)%'
+  autoAppend: false

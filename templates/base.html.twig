@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}">
 <head>
+	{{ google_tag_manager_head() }}
 	<title>{% block title %}{{ platform_name }}{% endblock %}</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -10,6 +11,7 @@
 	{% endblock %}
 </head>
 <body class="is-preload">
+	{{ google_tag_manager_body() }}
 
 	{# GH Corner #}
 	{% include 'components/gh-corner.html.twig' %}
@@ -45,5 +47,7 @@
 				document.getElementById("current-year").innerHTML = currentYear;
 			</script>
 		{% endblock %}
+
+		{{ google_tag_manager_body_end() }}
 	</body>
 	</html>
