@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e6b4bcb694b887c012fee18cea78c439",
+    "content-hash": "ec34ef8a51b18aac0badf6e6ca1c6e26",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -5197,6 +5197,62 @@
             "time": "2019-11-14T16:18:31+00:00"
         },
         {
+            "name": "symfony/templating",
+            "version": "v4.3.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/templating.git",
+                "reference": "f566e0d4624eb4a4ec5847fdb46808ffc4168a0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/templating/zipball/f566e0d4624eb4a4ec5847fdb46808ffc4168a0c",
+                "reference": "f566e0d4624eb4a4ec5847fdb46808ffc4168a0c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "require-dev": {
+                "psr/log": "~1.0"
+            },
+            "suggest": {
+                "psr/log-implementation": "For using debug logging in loaders"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Templating\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Templating Component",
+            "homepage": "https://symfony.com",
+            "time": "2020-01-04T12:24:57+00:00"
+        },
+        {
             "name": "symfony/translation",
             "version": "v4.3.8",
             "source": {
@@ -5964,6 +6020,58 @@
             "time": "2019-08-24T08:43:50+00:00"
         },
         {
+            "name": "xynnn/google-tag-manager-bundle",
+            "version": "2.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xyNNN/GoogleTagManagerBundle.git",
+                "reference": "e1214d8a000030bcad8dfb5b3296dbe7f7dec7c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xyNNN/GoogleTagManagerBundle/zipball/e1214d8a000030bcad8dfb5b3296dbe7f7dec7c2",
+                "reference": "e1214d8a000030bcad8dfb5b3296dbe7f7dec7c2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "symfony/config": "~2.8|~3.0|~4.0|~5.0",
+                "symfony/dependency-injection": "~2.8|~3.0|~4.0|~5.0",
+                "symfony/http-kernel": "~2.8|~3.0|~4.0|~5.0",
+                "symfony/templating": "~2.8|~3.0|~4.0|~5.0",
+                "twig/twig": "~1.23|~2.0"
+            },
+            "conflict": {
+                "twig/twig": ">=3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.3"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Xynnn\\GoogleTagManagerBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Philipp Bräutigam",
+                    "email": "philipp.braeutigam@googlemail.com"
+                }
+            ],
+            "description": "Google Tag Manager Bundle for Symfony",
+            "homepage": "https://github.com/xyNNN/GoogleTagManagerBundle",
+            "keywords": [
+                "Google Tag Manager",
+                "tag manager"
+            ],
+            "time": "2020-04-22T16:57:09+00:00"
+        },
+        {
             "name": "zendframework/zend-code",
             "version": "3.4.0",
             "source": {
@@ -6014,6 +6122,7 @@
                 "code",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-code",
             "time": "2019-10-05T23:18:22+00:00"
         },
         {
@@ -6068,6 +6177,7 @@
                 "events",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-eventmanager",
             "time": "2018-04-25T15:33:34+00:00"
         }
     ],
@@ -6120,6 +6230,7 @@
                 "monolog",
                 "productivity"
             ],
+            "abandoned": true,
             "time": "2019-10-24T07:13:31+00:00"
         },
         {
