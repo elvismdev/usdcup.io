@@ -4,9 +4,9 @@ copyright_design: 'Diseño'
 how_it_works: 'Cómo Funciona'
 close_btn: 'Cerrar'
 how_it_works_desc: |
-  <p>Similar a como lo harías desde tu navegador, <strong>USDCUC.info</strong> busca los últimos 100 anuncios listados en la categoría de compra y venta de divisas en <strong>revolico.com</strong> que contienen la palabra <em>USD</em> y dentro del rango de precios de <em>$0 - $2</em> CUC.</p>
+  <p>Similar como lo haces desde tu navegador, <strong>USDCUC.info</strong> busca los últimos 100 anuncios listados en la categoría de compra y venta de divisas en <strong>revolico.com</strong> que contienen la palabra <em>USD</em> y se encuentran dentro del rango de precios de <em>$0 - $2</em> CUC.</p>
 
-  <p>Luego filtra esta lista de anuncios y elimina aquellos que incluyan <a href="%gh_repo_url%/blob/master/config/services.yaml#L15">palabras</a> en su título que sugieran que NO son exclusivamente sobre la VENTA de USD.</p>
+  <p>Luego filtra esta lista de anuncios y elimina aquellos que incluyan <a href="%gh_repo_url%/blob/master/config/services.yaml#L15">palabras</a> en su título que sugieren que NO son exclusivamente sobre la VENTA de USD.</p>
 
   <p><code>(compro, envía, euro, canadiense, etc...)</code></p>
 
