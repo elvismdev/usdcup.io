@@ -24,11 +24,11 @@
 				<li><a href="{{ twitter_profile_link }}" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 				<li><a href="{{ gh_repo_url }}" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
 				{# <li><a href="mailto:hi@corp.info" class="icon fa-envelope"><span class="label">Email</span></a></li> #}
-				<li><a href="javascript:;" data-micromodal-trigger="modal-1">{{ 'how_it_works'|trans }} <i class="fas fa-question"></i></a></li>
+				<li><a href="javascript:;" data-micromodal-trigger="modal-1" class="modal-trigger">{{ 'how_it_works'|trans }} <i class="fas fa-question"></i></a></li>
 				{# <li><a href="{{ path('get_average_price') }}">API</a></li> #}
 			</ul>
 			<ul class="copyright">
-				<li>&copy; <span id="current-year"></span> <a href="{{ path('home') }}">{{ platform_name }}</a></li>
+				<li>&copy; <span id="current-year"></span> <a href="{{ path('home') }}" class="link-home">{{ platform_name }}</a></li>
 				<li>Dev: <a target="_blank" href="https://twitter.com/n3rdh4ck3r">@n3rdh4ck3r</a></li>
 				<li>{{ 'copyright_design'|trans }}: <a target="_blank" href="http://html5up.net">HTML5 UP</a></li>
 			</ul>
