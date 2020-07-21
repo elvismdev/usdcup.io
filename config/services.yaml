@@ -46,6 +46,7 @@ parameters:
         - depósito
         - deposito
         - pago
+    twitter_profile_link: 'https://twitter.com/usdcuc'
 
 
 services:
