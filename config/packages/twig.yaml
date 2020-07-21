@@ -10,3 +10,4 @@ twig:
        max_price: '%max_price%'
        gh_repo_url: '%gh_repo_url%'
        banned_words: '%banned_words%'
+       twitter_profile_link: '%twitter_profile_link%'
