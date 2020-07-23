@@ -33,6 +33,9 @@
 a.github-corner {
   border-bottom: inherit;
   position: inherit;
+  top: 0;
+  right: 0;
+  z-index: -1;
 }
 
 .modal__close {
