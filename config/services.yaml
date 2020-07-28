@@ -14,6 +14,7 @@ parameters:
     gh_repo_url: 'https://github.com/elvismdev/usdcuc.info'
     banned_words:
         - compro
+        - compró
         - conpro
         - comprando
         - comprar
