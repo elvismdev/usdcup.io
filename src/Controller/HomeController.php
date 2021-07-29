@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,13 +34,16 @@ class HomeController extends AbstractController
         $bannedWordsStr = implode(' ', $bannedWords);
 
         // Create the full power keyword search text.
-        $searchQuery = '"' . $this->getParameter('search_text') . '" ' . $bannedWordsStr;
+        $searchQuery = '"'.$this->getParameter('search_text').'" '.$bannedWordsStr;
 
         // Make an HTTP GET request to https://www.revolico.com/compra-venta/divisas/search.html?q=...&min_price=...&max_price=...
-        $response = $client->request('GET', $this->getParameter('search_page_url'), [
+        $response = $client->request(
+            'GET',
+            $this->getParameter('search_page_url'),
+            [
             // Set request headers.
             'headers' => [
-                'User-Agent' => $this->getParameter('user_agent')
+                'User-Agent' => $this->getParameter('user_agent'),
             ],
 
             // Set search parameters. These values are automatically encoded before including them in the URL
@@ -50,7 +52,8 @@ class HomeController extends AbstractController
                 'min_price' => $this->getParameter('min_price'),
                 'max_price' => $this->getParameter('max_price'),
             ],
-        ]);
+            ]
+        );
 
         // Get the status code.
         $statusCode = $response->getStatusCode();
@@ -61,9 +64,8 @@ class HomeController extends AbstractController
             return $this->json([
                 'success'               => false,
                 'remote_status_code'    => $statusCode,
-                'average_price'         => null
+                'average_price'         => null,
             ]);
-
         } else {
             // Get the HTML contents of the page requested.
             $content = $response->getContent();
@@ -115,7 +117,7 @@ class HomeController extends AbstractController
                 'success'               => true,
                 'remote_status_code'    => $statusCode,
                 'average_price'         => (float) number_format($averagePrice, 2, '.', ''),
-                'total_ads_evaluated'   => $pricesQty
+                'total_ads_evaluated'   => $pricesQty,
             ]);
         }
     }
@@ -124,15 +126,22 @@ class HomeController extends AbstractController
     /**
      * Custom stripos() function to find multiple needles in one haystack.
      * @param string $haystack
-     * @param array $needle
-     * @param bool $offset
+     * @param array  $needle
+     * @param bool   $offset
+     *
      * @return bool
      */
-    private function striposa($haystack, $needle, $offset=0) {
-        if(!is_array($needle)) $needle = array($needle);
-        foreach($needle as $query) {
-            if(stripos($haystack, $query, $offset) !== false) return true;
+    private function striposa($haystack, $needle, $offset = 0)
+    {
+        if (!is_array($needle)) {
+            $needle = array($needle);
         }
+        foreach ($needle as $query) {
+            if (stripos($haystack, $query, $offset) !== false) {
+                return true;
+            }
+        }
+
         return false;
     }
 }
