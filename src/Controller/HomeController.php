@@ -3,7 +3,6 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\DomCrawler\Crawler;
 use App\Util\UtilityBox;
 
 class HomeController extends AbstractController
@@ -15,6 +14,105 @@ class HomeController extends AbstractController
     {
         return $this->render('home/index.html.twig');
     }
+
+
+    /**
+     * @Route("/api/get_average_price", name="get_average_price", methods={"GET"}, defaults={"_format": "json"})
+     */
+    public function getAveragePrice()
+    {
+        // Get banned words from settings.
+        $bannedWords = $this->getParameter('banned_words');
+        $bannedWords = UtilityBox::addExclPrefix($bannedWords);
+
+        // Create string with banned words.
+        $bannedWordsStr = implode(' ', $bannedWords);
+
+        // Create the full power keyword search text.
+        $searchQuery = '"'.$this->getParameter('search_text').'" '.$bannedWordsStr;
+
+        // Prepare variables for GraphQL query.
+        $variables = [
+            'subcategorySlug' => 'compra-venta_divisas',
+            'contains' => $searchQuery,
+            'priceGte' => $this->getParameter('min_price'),
+            'priceLte' => $this->getParameter('max_price'),
+            'sort' => [
+                [
+                'order' => 'desc',
+                'field' => 'relevance',
+                ],
+            ],
+            'page' => 1,
+            'pageLength' => 100,
+        ];
+        // Fire the GraphQL query and retrieve data from ad platform.
+        $response = $this->_graphQLExecQuery(
+            $this->_getGraphQLJSONStringQuery(),
+            $variables
+        );
+
+        // Convert response from JSON to array.
+        $response = json_decode($response, true);
+        // Return the first element of the array response.
+        if (isset($response[0])) {
+            $response = $response[0];
+        }
+
+        // Check status of request.
+        if (isset($response['errors']) && !empty($response['errors'])) {
+            // Return success "false" response so we capture and handle from frontend JS.
+            $jsonResponse = $this->json(
+                [
+                'success'               => false,
+                'remote_status_code'    => $response['status'],
+                'remote_errors'         => $response['errors'],
+                'average_price'         => null,
+                ]
+            );
+        } else {
+            // If we have ads data, iterate through the list and calculate average price.
+            $adsList = [];
+            if (isset($response['data']['adsPerPage']['edges']) && !empty($response['data']['adsPerPage']['edges'])) {
+                $adsList = $response['data']['adsPerPage']['edges'];
+            }
+
+            // Add all available prices to a single array list.
+            $pricesList = [];
+            foreach ($adsList as $ad) {
+                // Continue to next element if Ad is NOT set in CUP, or listed price is above of our set max price limit.
+                if ($ad['node']['currency'] !== 'CUP'
+                    || $ad['node']['price'] > $this->getParameter('max_price')
+                ) {
+                    continue;
+                }
+
+                // Set ad price to the prices list.
+                $pricesList[] = $ad['node']['price'];
+            }
+
+            dump($pricesList);
+
+            // Set the total prices collected.
+            $pricesQty = count($pricesList);
+
+            // Calculate the average price.
+            $averagePrice = array_sum($pricesList) / $pricesQty;
+
+            // Set the JSON response.
+            $jsonResponse = $this->json(
+                [
+                'success'               => true,
+                'remote_status_code'    => $response['status'],
+                'average_price'         => (float) number_format($averagePrice, 2, '.', ''),
+                'total_ads_evaluated'   => $pricesQty,
+                ]
+            );
+        }
+
+        return $jsonResponse;
+    }
+
 
     /**
      * Definition of the GraphQL query.
@@ -74,127 +172,14 @@ class HomeController extends AbstractController
 
 
     /**
-     * @Route("/api/get_average_price", name="get_average_price", methods={"GET"}, defaults={"_format": "json"})
+     * Custom stripos() function to find multiple needles in one haystack.
+     * @param string $haystack
+     * @param array  $needle
+     * @param bool   $offset
+     *
+     * @return bool
      */
-    public function getAveragePrice()
-    {
-        // Get banned words from settings.
-        $bannedWords = $this->getParameter('banned_words');
-        $bannedWords = UtilityBox::addExclPrefix($bannedWords);
-
-        // Create string with banned words.
-        $bannedWordsStr = implode(' ', $bannedWords);
-
-        // Create the full power keyword search text.
-        $searchQuery = '"'.$this->getParameter('search_text').'" '.$bannedWordsStr;
-
-        // Prepare variables for GraphQL query.
-        $variables = [
-            'subcategorySlug' => 'compra-venta_divisas',
-            'contains' => $searchQuery,
-            'priceGte' => $this->getParameter('min_price'),
-            'priceLte' => $this->getParameter('max_price'),
-            'sort' => [
-                [
-                'order' => 'desc',
-                'field' => 'relevance',
-                ],
-            ],
-            'page' => 1,
-            'pageLength' => 100,
-        ];
-        // Fire the GraphQL query and retrieve data from ad platform.
-        $response = $this->_graphQLExecQuery(
-            $this->_getGraphQLJSONStringQuery(),
-            $variables
-        );
-
-        // Convert response from JSON to array.
-        $response = json_decode($response, true);
-        // Return the first element of the array response.
-        $response = current($response);
-
-
-        // dump($response);
-        // die;
-
-        // Get the status code.
-        $statusCode = $response->getStatusCode();
-
-        // Check status of request.
-        if (200 !== $statusCode) {
-            // Return success "false" response so we capture and handle from frontend JS.
-            return $this->json([
-                'success'               => false,
-                'remote_status_code'    => $statusCode,
-                'average_price'         => null,
-            ]);
-        } else {
-            // Get the HTML contents of the page requested.
-            $content = $response->getContent();
-
-            // Send HTML to crawler.
-            $crawler = new Crawler($content);
-
-            // Obtain all the ads <li> rows.
-            $adRowElements = $crawler
-            ->filter('li[data-cy="adRow"]')
-            // Exclude Ads with banned words in the title.
-            ->reduce(function (Crawler $node, $i) use ($bannedWords) {
-                // Get the adTitle element.
-                $adTitleElement = $node->filter('span[data-cy="adTitle"]');
-
-                // Check if Ad title contains banned words.
-                if ($this->striposa($adTitleElement->html(), $bannedWords) === false) {
-                    // Include this Ad, it seems to NOT have banned word in his title.
-                    return true;
-                } else {
-                    // Do not include this Ad, it seems it has a banned word in his title.
-                    return false;
-                }
-            })
-            ;
-
-            // Get the ads prices elements.
-            $adsPricesElement = $adRowElements->filter('span[data-cy="adPrice"]');
-
-            // Add all available prices to a single array list.
-            $pricesList = [];
-            foreach ($adsPricesElement as $domElement) {
-                // Continue to next element if Ad price is set in CUP.
-                if (strpos($domElement->nodeValue, 'CUP') !== false) {
-                    continue;
-                }
-
-                // Remove extra non-neded text from prices before adding to the price list.
-                $pricesList[] = str_replace([' cuc - ', ' usd - '], '', $domElement->nodeValue);
-            }
-
-            // Set the total prices collected.
-            $pricesQty = count($pricesList);
-
-            // Calculate the average price.
-            $averagePrice = array_sum($pricesList) / $pricesQty;
-
-            return $this->json([
-                'success'               => true,
-                'remote_status_code'    => $statusCode,
-                'average_price'         => (float) number_format($averagePrice, 2, '.', ''),
-                'total_ads_evaluated'   => $pricesQty,
-            ]);
-        }
-    }
-
-
-        /**
-        * Custom stripos() function to find multiple needles in one haystack.
-        * @param string $haystack
-        * @param array  $needle
-        * @param bool   $offset
-        *
-        * @return bool
-        */
-    private function striposa($haystack, $needle, $offset = 0)
+    private function _striposa($haystack, $needle, $offset = 0)
     {
         if (!is_array($needle)) {
             $needle = array($needle);
