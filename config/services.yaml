@@ -7,12 +7,14 @@ parameters:
     locale: 'es'
     user_agent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36'
     search_page_url: 'https://www.revolico.com/compra-venta/divisas/search.html'
+    ad_platform_graphql_endpoint: 'https://api.revolico.app/graphql/'
     search_text: 'usd'
     min_price: 0
-    max_price: 2
-    platform_name: 'USDCUC.info'
+    max_price: 100
+    platform_name: 'USDCUP.info'
     gh_repo_url: 'https://github.com/elvismdev/usdcuc.info'
     banned_words:
+        - cambio
         - compro
         - compró
         - conpro
@@ -47,6 +49,8 @@ parameters:
         - depósito
         - deposito
         - pago
+        - recargo
+        - recargamos
     twitter_profile_link: 'https://twitter.com/usdcuc'
 
 
@@ -59,13 +63,17 @@ services:
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Controller\:
-        resource: '../src/Controller'
+        resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
     # add more service definitions when explicit configuration is needed
