@@ -4,7 +4,7 @@ copyright_design: 'Design'
 how_it_works: 'How it Works'
 close_btn: 'Close'
 how_it_works_desc: |
-  <p>Similar to how you would do it from your browser, <strong>USDCUC.info</strong> search the last 100 ads listed in the currency purchase and sale category on <strong>revolico.com</strong> that contains the word <em>USD</em> and within the price range of <em>$0 - $2</em> CUC.</p>
+  <p>Similar to how you would do it from your browser, <strong>USDCUP.info</strong> search the last 100 ads listed in the currency purchase and sale category on <strong>revolico.com</strong> that contains the word <em>USD</em> and within the price range of <em>$0 - $100</em> CUP.</p>
 
   <p>Then the list of ads is filtered to remove those that include <a href="%gh_repo_url%/blob/master/config/services.yaml#L15">words</a> in the title that suggest they are NOT exclusively about USD SALE.</p>
 
@@ -14,4 +14,4 @@ how_it_works_desc: |
 
   <p><code>$average = SUM( $prices ) / TOTAL( $ads )</code></p>
 
-  <p><em>* This algorithm based on the most recent Revolico sales publications, would allow us to visualize on what price the CUC vs USD change is currently in the Cuban informal market (the streets). However, this result should not be used as legal, tax, investment, financial or other advice. This web application is just an experiment for informational purposes.</em> 💡</p>
+  <p><em>* This algorithm based on the most recent Revolico sales publications, would allow us to visualize on what price the CUP vs USD change is currently in the Cuban informal market (the street). However, this result should not be used as legal, tax, investment, financial or other advice. This web application is just an experiment for informational purposes.</em> 💡</p>

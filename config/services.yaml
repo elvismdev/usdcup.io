@@ -11,7 +11,7 @@ parameters:
     search_text: 'usd'
     min_price: 0
     max_price: 100
-    platform_name: 'USDCUC.info'
+    platform_name: 'USDCUP.info'
     gh_repo_url: 'https://github.com/elvismdev/usdcuc.info'
     banned_words:
         - cambio

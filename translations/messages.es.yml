@@ -4,7 +4,7 @@ copyright_design: 'Template'
 how_it_works: 'Cómo Funciona'
 close_btn: 'Cerrar'
 how_it_works_desc: |
-  <p>Similar como lo haces desde tu navegador, <strong>USDCUC.info</strong> busca los últimos 100 anuncios listados en la categoría de compra y venta de divisas en <strong>revolico.com</strong> que contienen la palabra <em>USD</em> y se encuentran dentro del rango de precios de <em>$0 - $2</em> CUC.</p>
+  <p>Similar como lo haces desde tu navegador, <strong>USDCUP.info</strong> busca los últimos 100 anuncios listados en la categoría de compra y venta de divisas en <strong>revolico.com</strong> que contienen la palabra <em>USD</em> y se encuentran dentro del rango de precios de <em>$0 - $100</em> CUP.</p>
 
   <p>Luego filtra esta lista de anuncios y elimina aquellos que incluyan <a href="%gh_repo_url%/blob/master/config/services.yaml#L15">palabras</a> en su título que sugieren que NO son exclusivamente sobre la VENTA de USD.</p>
 
@@ -14,4 +14,4 @@ how_it_works_desc: |
 
   <p><code>$promedio = SUM( $precios ) / TOTAL( $anuncios )</code></p>
 
-  <p><em>* Este algoritmo basado en los listados de ventas de USD más recientes de Revolico.com, permitiría estimar cómo se negocia actualmente el USD frente al CUC en el mercado informal (callejero). Sin embargo, estos resultados no deben utilizarse como asesoramiento legal, fiscal, de inversión, financiero o de otro tipo. Esta aplicación web es solo un experimento con fines informativos.</em> 💡</p>
+  <p><em>* Este algoritmo basado en los listados de ventas de USD más recientes de Revolico.com, permitiría estimar cómo se negocia actualmente el USD frente al CUP en el mercado informal (la calle). Sin embargo, estos resultados no deben utilizarse como asesoramiento legal, fiscal, de inversión, financiero o de otro tipo. Esta aplicación web es solo un experimento con fines informativos.</em> 💡</p>
