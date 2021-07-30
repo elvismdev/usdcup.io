@@ -91,8 +91,6 @@ class HomeController extends AbstractController
                 $pricesList[] = $ad['node']['price'];
             }
 
-            dump($pricesList);
-
             // Set the total prices collected.
             $pricesQty = count($pricesList);
 
