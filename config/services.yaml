@@ -7,9 +7,10 @@ parameters:
     locale: 'es'
     user_agent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36'
     search_page_url: 'https://www.revolico.com/compra-venta/divisas/search.html'
+    ad_platform_graphql_endpoint: 'https://api.revolico.app/graphql/'
     search_text: 'usd'
     min_price: 0
-    max_price: 2
+    max_price: 100
     platform_name: 'USDCUC.info'
     gh_repo_url: 'https://github.com/elvismdev/usdcuc.info'
     banned_words:

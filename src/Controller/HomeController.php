@@ -3,7 +3,6 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\DomCrawler\Crawler;
 use App\Util\UtilityBox;
 
@@ -17,15 +16,68 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig');
     }
 
+    /**
+     * Definition of the GraphQL query.
+     *
+     * @return string
+     */
+    private function _getGraphQLJSONStringQuery()
+    {
+        $query = 'query AdsSearch($category: ID, $subcategory: ID, $contains: String, $priceGte: Float, $priceLte: Float, $sort: [adsPerPageSort], $hasImage: Boolean, $categorySlug: String, $subcategorySlug: String, $page: Int, $provinceSlug: String, $municipalitySlug: String, $pageLength: Int) {\\n  adsPerPage(category: $category, subcategory: $subcategory, contains: $contains, priceGte: $priceGte, priceLte: $priceLte, hasImage: $hasImage, sort: $sort, categorySlug: $categorySlug, subcategorySlug: $subcategorySlug, page: $page, provinceSlug: $provinceSlug, municipalitySlug: $municipalitySlug, pageLength: $pageLength) {\\n    pageInfo {\\n      ...PaginatorPageInfo\\n      __typename\\n    }\\n    edges {\\n      node {\\n        id\\n        title\\n        price\\n        currency\\n        shortDescription\\n        permalink\\n        imagesCount\\n        updatedOnToOrder\\n        isAuto\\n        province {\\n          id\\n          name\\n          slug\\n          __typename\\n        }\\n        municipality {\\n          id\\n          name\\n          slug\\n          __typename\\n        }\\n        __typename\\n      }\\n      __typename\\n    }\\n    meta {\\n      total\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\\nfragment PaginatorPageInfo on CustomPageInfo {\\n  startCursor\\n  endCursor\\n  hasNextPage\\n  hasPreviousPage\\n  pageCount\\n  __typename\\n}\\n';
+
+        return $query;
+    }
+
+
+    /**
+     * Excecute GraphQL query.
+     *
+     * @param string $query
+     * @param array  $variables
+     *
+     * @return string
+     */
+    private function _graphQLExecQuery(string $query, array $variables = [])
+    {
+        $curl = curl_init();
+
+        curl_setopt_array(
+            $curl,
+            [
+                CURLOPT_URL => $this->getParameter('ad_platform_graphql_endpoint'),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '[
+                    {
+                        "variables": '.json_encode($variables).',
+                        "query": "'.$query.'"
+                    }
+                ]',
+                CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'User-Agent: '.$this->getParameter('user_agent'),
+                ),
+            ]
+        );
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        return $response;
+    }
+
 
     /**
      * @Route("/api/get_average_price", name="get_average_price", methods={"GET"}, defaults={"_format": "json"})
      */
     public function getAveragePrice()
     {
-        // Initialize HTTP client.
-        $client = HttpClient::create();
-
         // Get banned words from settings.
         $bannedWords = $this->getParameter('banned_words');
         $bannedWords = UtilityBox::addExclPrefix($bannedWords);
@@ -36,24 +88,35 @@ class HomeController extends AbstractController
         // Create the full power keyword search text.
         $searchQuery = '"'.$this->getParameter('search_text').'" '.$bannedWordsStr;
 
-        // Make an HTTP GET request to https://www.revolico.com/compra-venta/divisas/search.html?q=...&min_price=...&max_price=...
-        $response = $client->request(
-            'GET',
-            $this->getParameter('search_page_url'),
-            [
-            // Set request headers.
-            'headers' => [
-                'User-Agent' => $this->getParameter('user_agent'),
+        // Prepare variables for GraphQL query.
+        $variables = [
+            'subcategorySlug' => 'compra-venta_divisas',
+            'contains' => $searchQuery,
+            'priceGte' => $this->getParameter('min_price'),
+            'priceLte' => $this->getParameter('max_price'),
+            'sort' => [
+                [
+                'order' => 'desc',
+                'field' => 'relevance',
+                ],
             ],
-
-            // Set search parameters. These values are automatically encoded before including them in the URL
-            'query' => [
-                'q'         => $searchQuery,
-                'min_price' => $this->getParameter('min_price'),
-                'max_price' => $this->getParameter('max_price'),
-            ],
-            ]
+            'page' => 1,
+            'pageLength' => 100,
+        ];
+        // Fire the GraphQL query and retrieve data from ad platform.
+        $response = $this->_graphQLExecQuery(
+            $this->_getGraphQLJSONStringQuery(),
+            $variables
         );
+
+        // Convert response from JSON to array.
+        $response = json_decode($response, true);
+        // Return the first element of the array response.
+        $response = current($response);
+
+
+        // dump($response);
+        // die;
 
         // Get the status code.
         $statusCode = $response->getStatusCode();
@@ -123,14 +186,14 @@ class HomeController extends AbstractController
     }
 
 
-    /**
-     * Custom stripos() function to find multiple needles in one haystack.
-     * @param string $haystack
-     * @param array  $needle
-     * @param bool   $offset
-     *
-     * @return bool
-     */
+        /**
+        * Custom stripos() function to find multiple needles in one haystack.
+        * @param string $haystack
+        * @param array  $needle
+        * @param bool   $offset
+        *
+        * @return bool
+        */
     private function striposa($haystack, $needle, $offset = 0)
     {
         if (!is_array($needle)) {
