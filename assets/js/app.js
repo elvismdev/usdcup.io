@@ -17,7 +17,8 @@ import MicroModal from 'micromodal';
 // import CountUp from 'countup.js';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-// const $ = require('jquery');
+const $ = require('jquery');
+global.$ = global.jQuery = $;
 
 (function() {
 
