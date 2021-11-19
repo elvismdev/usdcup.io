@@ -30,7 +30,7 @@ Highcharts.theme = {
     style: {
       color: "#E0E0E3",
       textTransform: "uppercase",
-      fontSize: "20px",
+      fontSize: "30px",
     },
   },
   subtitle: {
@@ -44,6 +44,7 @@ Highcharts.theme = {
     labels: {
       style: {
         color: "#E0E0E3",
+        fontSize: "20px",
       },
     },
     lineColor: "#707073",
@@ -60,6 +61,7 @@ Highcharts.theme = {
     labels: {
       style: {
         color: "#E0E0E3",
+        fontSize: "20px",
       },
     },
     lineColor: "#707073",
@@ -69,6 +71,7 @@ Highcharts.theme = {
     title: {
       style: {
         color: "#A0A0A3",
+        fontSize: "18px",
       },
     },
   },
@@ -76,6 +79,7 @@ Highcharts.theme = {
     backgroundColor: "rgba(0, 0, 0, 0.85)",
     style: {
       color: "#F0F0F0",
+      fontSize: "18px",
     },
   },
   plotOptions: {
@@ -150,6 +154,7 @@ Highcharts.theme = {
       stroke: "#000000",
       style: {
         color: "#CCC",
+        fontSize: "16px",
       },
       states: {
         hover: {
@@ -157,6 +162,7 @@ Highcharts.theme = {
           stroke: "#000000",
           style: {
             color: "white",
+            fontSize: "16px",
           },
         },
         select: {
@@ -164,6 +170,7 @@ Highcharts.theme = {
           stroke: "#000000",
           style: {
             color: "white",
+            fontSize: "16px",
           },
         },
       },
@@ -172,6 +179,7 @@ Highcharts.theme = {
     inputStyle: {
       backgroundColor: "#333",
       color: "silver",
+      fontSize: "16px",
     },
     labelStyle: {
       color: "silver",
