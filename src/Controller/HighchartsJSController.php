@@ -60,7 +60,7 @@ class HighchartsJSController extends AbstractController
 
         $ob = new Highstock();
         $ob->chart->renderTo('pricehistorychart');  // The #id of the div where to render the chart
-        $ob->title->text('USD Price');
+        $ob->title->text('Precio USD');
         // $ob->rangeSelector->selected(true);
         // $ob->xAxis->title(array('text'  => "Horizontal axis title"));
         $ob->yAxis->title(['text'  => 'CUP']);
