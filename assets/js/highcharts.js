@@ -1,7 +1,7 @@
 const Highcharts = require("highcharts/highstock"); // or require('highcharts/highstock');
 Highcharts.theme = {
   colors: [
-    "#2b908f",
+    "#ffd300",
     "#90ee7e",
     "#f45b5b",
     "#7798BF",
@@ -183,7 +183,7 @@ Highcharts.theme = {
       borderColor: "#AAA",
     },
     outlineColor: "#CCC",
-    maskFill: "rgba(255,255,255,0.1)",
+    maskFill: "rgba(255,255,0,0.1)",
     series: {
       color: "#7798BF",
       lineColor: "#A6C7ED",
