@@ -69,7 +69,6 @@ class HighchartsJSController extends AbstractController
         // $ob->tooltip->valueDecimals(2);
 
         return $this->render('highcharts_js/index.html.twig', [
-            'controller_name' => 'HighchartsJSController',
             'chart' => $ob,
         ]);
     }

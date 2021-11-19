@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HighchartsJSController!{% endblock %}
+{% block title %}Historial de Precios{% endblock %}
 
 {% block stylesheets %}
   {{ parent() }}
@@ -22,8 +22,10 @@
 {% block javascripts %}
   {{ parent() }}
   {{ encore_entry_script_tags('highcharts') }}
-  <script src="https://code.highcharts.com/themes/dark-unica.js"></script>
   <script type="text/javascript">
-    {{ chart(chart) }}
+    $(function(){
+        // the false param is to render without a wrapper function
+        {{ chart(chart, false) }}
+    });
   </script>
  {% endblock %}
