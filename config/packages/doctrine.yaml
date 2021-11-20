@@ -19,3 +19,4 @@ doctrine:
         dql:
             string_functions:
                 unix_timestamp: 'App\DQL\UnixTimestamp'
+                cast: 'Oro\ORM\Query\AST\Functions\Cast'

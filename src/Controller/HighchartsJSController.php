@@ -20,44 +20,56 @@ class HighchartsJSController extends AbstractController
         $priceHistoryRepository = $em->getRepository(PriceHistory::class);
         $allPriceHistory = $priceHistoryRepository->findAllAsArray();
 
-        dump($allPriceHistory);
+        $data = [];
+        foreach ($allPriceHistory as $key => $value) {
+            $data[] = [
+                (int) $value[1],
+                (float) round($value['closingPrice'], 2),
+            ];
+        }
+
+        // var_dump($data);
+        // dump($allPriceHistory);
+
 
         // $data = $allPriceHistory;
 
-        $data = [
-            [
-                1574173800000,
-                66.57,
-            ],
-            [
-                1574260200000,
-                65.8,
-            ],
-            [
-                1574346600000,
-                65.5,
-            ],
-            [
-                1574433000000,
-                65.44,
-            ],
-            [
-                1574692200000,
-                66.59,
-            ],
-            [
-                1574778600000,
-                66.07,
-            ],
-            [
-                1574865000000,
-                66.96,
-            ],
-            [
-                1575037800000,
-                66.81,
-            ],
-        ];
+        // $data = [
+        //     [
+        //         1574173800000,
+        //         66.57,
+        //     ],
+        //     [
+        //         1574260200000,
+        //         65.8,
+        //     ],
+        //     [
+        //         1574346600000,
+        //         65.5,
+        //     ],
+        //     // [
+        //     //     1574433000000,
+        //     //     65.44,
+        //     // ],
+        //     // [
+        //     //     1574692200000,
+        //     //     66.59,
+        //     // ],
+        //     // [
+        //     //     1574778600000,
+        //     //     66.07,
+        //     // ],
+        //     // [
+        //     //     1574865000000,
+        //     //     66.96,
+        //     // ],
+        //     // [
+        //     //     1575037800000,
+        //     //     66.81,
+        //     // ],
+        // ];
+
+        // var_dump($data);
 
         // Chart
         $series = [
