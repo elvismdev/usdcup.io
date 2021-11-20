@@ -17,6 +17,8 @@ doctrine:
                 prefix: 'App\Entity'
                 alias: App
         dql:
+            datetime_functions:
+                unix_timestamp: DoctrineExtensions\Query\Mysql\UnixTimestamp
+
             string_functions:
-                unix_timestamp: 'App\DQL\UnixTimestamp'
-                cast: 'Oro\ORM\Query\AST\Functions\Cast'
+                cast: DoctrineExtensions\Query\Mysql\Cast
