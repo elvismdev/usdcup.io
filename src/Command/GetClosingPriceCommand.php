@@ -72,7 +72,8 @@ class GetClosingPriceCommand extends Command
         if (isset($averagePriceResults['pricesQty']) && isset($averagePriceResults['averagePrice'])) {
             $priceHistory = new PriceHistory();
             $priceHistory->setCurrency('USD');
-            $priceHistory->setClosingPrice($averagePriceResults['averagePrice']);
+            $priceHistory->setUnixCreatedAt(round(microtime(true) * 1000));
+            $priceHistory->setClosingPrice(round($averagePriceResults['averagePrice'], 2));
             $priceHistory->setAdsPricesEval($averagePriceResults['pricesQty']);
 
             // Tell doctrine we want to save priceHistory.

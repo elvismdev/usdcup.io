@@ -26,7 +26,7 @@ class PriceHistoryRepository extends ServiceEntityRepository
     public function findAllAsArray()
     {
         return $this->createQueryBuilder('p')
-            ->select('UNIX_TIMESTAMP(p.createdAt) * 1000')
+            ->select('p.unixCreatedAt')
             ->addSelect('p.closingPrice')
             // ->andWhere('p.exampleField = :val')
             // ->setParameter('val', $value)

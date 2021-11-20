@@ -36,6 +36,11 @@ class PriceHistory
      */
     private $adsPricesEval;
 
+    /**
+     * @ORM\Column(type="bigint")
+     */
+    private $unixCreatedAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,4 +81,17 @@ class PriceHistory
 
         return $this;
     }
+
+    public function getUnixCreatedAt(): ?string
+    {
+        return $this->unixCreatedAt;
+    }
+
+    public function setUnixCreatedAt(string $unixCreatedAt): self
+    {
+        $this->unixCreatedAt = $unixCreatedAt;
+
+        return $this;
+    }
+
 }

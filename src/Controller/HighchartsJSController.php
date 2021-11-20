@@ -23,13 +23,13 @@ class HighchartsJSController extends AbstractController
         $data = [];
         foreach ($allPriceHistory as $key => $value) {
             $data[] = [
-                (int) $value[1],
-                (float) round($value['closingPrice'], 2),
+                (int) $value['unixCreatedAt'],
+                (float) $value['closingPrice'],
             ];
         }
 
         // var_dump($data);
-        // dump($allPriceHistory);
+        // dump($data);
 
 
         // $data = $allPriceHistory;
