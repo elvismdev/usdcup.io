@@ -47,39 +47,16 @@ class HomeController extends AbstractController
                 ]
             );
         } else {
-            // If we have ads data, iterate through the list and calculate average price.
-            $adsList = [];
-            if (isset($response['data']['adsPerPage']['edges']) && !empty($response['data']['adsPerPage']['edges'])) {
-                $adsList = $response['data']['adsPerPage']['edges'];
-            }
-
-            // Add all available prices to a single array list.
-            $pricesList = [];
-            foreach ($adsList as $ad) {
-                // Continue to next element if Ad is NOT set in CUP, or listed price is above of our set max price limit.
-                if ($ad['node']['currency'] !== 'CUP'
-                    || $ad['node']['price'] > $this->getParameter('max_price')
-                ) {
-                    continue;
-                }
-
-                // Set ad price to the prices list.
-                $pricesList[] = $ad['node']['price'];
-            }
-
-            // Set the total prices collected.
-            $pricesQty = count($pricesList);
-
-            // Calculate the average price.
-            $averagePrice = array_sum($pricesList) / $pricesQty;
+            // Find the average price.
+            $averagePriceResults = $revolicoService->findAveragePrice();
 
             // Set the JSON response.
             $jsonResponse = $this->json(
                 [
                 'success'               => true,
                 'remote_status_code'    => $response['status'],
-                'average_price'         => (float) number_format($averagePrice, 2, '.', ''),
-                'total_ads_evaluated'   => $pricesQty,
+                'average_price'         => (float) number_format($averagePriceResults['averagePrice'], 2, '.', ''),
+                'total_ads_evaluated'   => $averagePriceResults['pricesQty'],
                 ]
             );
         }

@@ -31,6 +31,11 @@ class PriceHistory
      */
     private $closingPrice;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $adsPricesEval;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -56,6 +61,18 @@ class PriceHistory
     public function setClosingPrice(float $closingPrice): self
     {
         $this->closingPrice = $closingPrice;
+
+        return $this;
+    }
+
+    public function getAdsPricesEval(): ?int
+    {
+        return $this->adsPricesEval;
+    }
+
+    public function setAdsPricesEval(int $adsPricesEval): self
+    {
+        $this->adsPricesEval = $adsPricesEval;
 
         return $this;
     }

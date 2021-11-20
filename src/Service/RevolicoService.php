@@ -40,6 +40,11 @@ class RevolicoService
      */
     protected $userAgent;
 
+    /**
+     * @var array
+     */
+    protected $adsList = [];
+
     public function __construct(
         array $bannedWords,
         string $searchText,
@@ -157,6 +162,39 @@ class RevolicoService
             $response = $response[0];
         }
 
+        // Set ads if found in adsList property.
+        if (isset($response['data']['adsPerPage']['edges']) && !empty($response['data']['adsPerPage']['edges'])) {
+            $this->adsList = $response['data']['adsPerPage']['edges'];
+        }
+
         return $response;
+    }
+
+    public function findAveragePrice()
+    {
+        // Add all available prices to a single array list.
+        $pricesList = [];
+        foreach ($this->adsList as $ad) {
+            // Continue to next element if Ad is NOT set in CUP, or listed price is above of our set max price limit.
+            if ($ad['node']['currency'] !== 'CUP'
+                || $ad['node']['price'] > $this->priceLte
+            ) {
+                continue;
+            }
+
+            // Set ad price to the prices list.
+            $pricesList[] = $ad['node']['price'];
+        }
+
+        // Set the total prices collected.
+        $pricesQty = count($pricesList);
+
+        // Calculate the average price.
+        $averagePrice = array_sum($pricesList) / $pricesQty;
+
+        return [
+          'pricesQty' => $pricesQty,
+          'averagePrice' => $averagePrice,
+        ];
     }
 }
