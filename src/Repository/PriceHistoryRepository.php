@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\PriceHistory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @method PriceHistory|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,19 +23,18 @@ class PriceHistoryRepository extends ServiceEntityRepository
     // /**
     //  * @return PriceHistory[] Returns an array of PriceHistory objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllAsArray()
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('UNIX_TIMESTAMP(p.createdAt), p.closingPrice')
+            // ->andWhere('p.exampleField = :val')
+            // ->setParameter('val', $value)
+            // ->orderBy('p.id', 'ASC')
+            // ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
+            ->getResult(Query::HYDRATE_ARRAY)
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?PriceHistory

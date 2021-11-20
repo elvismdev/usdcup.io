@@ -6,14 +6,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ob\HighchartsBundle\Highcharts\Highstock;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\PriceHistory;
 
 class HighchartsJSController extends AbstractController
 {
     /**
      * @Route("/history", name="history")
      */
-    public function index(): Response
+    public function index(EntityManagerInterface $em): Response
     {
+
+        $priceHistoryRepository = $em->getRepository(PriceHistory::class);
+        $allPriceHistory = $priceHistoryRepository->findAllAsArray();
+
+        dump($allPriceHistory);
+
+        // $data = $allPriceHistory;
 
         $data = [
             [
