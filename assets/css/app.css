@@ -38,3 +38,10 @@ a.github-corner {
 .modal__close {
   z-index: 5;
 }
+
+/* Chart page */
+@media screen and (max-width: 736px) {
+  .price-history-chart-wrapper {
+    bottom: 60px;
+  }
+}
