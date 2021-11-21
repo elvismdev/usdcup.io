@@ -27,7 +27,7 @@ class HighchartsJSController extends AbstractController
                 (float) $value['closingPrice'],
             ];
         }
-        
+
         // Chart
         $series = [
             [
