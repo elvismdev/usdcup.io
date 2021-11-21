@@ -8,6 +8,7 @@
         "highcharts": "^9.3.1",
         "jquery": "^3.6.0",
         "micromodal": "^0.4.2",
+        "moment": "^2.29.1",
         "node-sass": "^4.13.0",
         "regenerator-runtime": "^0.13.2",
         "sass-loader": "^7.0.1",

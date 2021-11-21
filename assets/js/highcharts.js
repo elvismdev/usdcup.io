@@ -1,4 +1,20 @@
 const Highcharts = require("highcharts/highstock"); // or require('highcharts/highstock');
+const moment = require("moment");
+// Get locale from document and set it to moment().
+moment.locale(document.documentElement.lang);
+// Capitalize only the first letter of the string.
+function capitalizeFirstLetter(array) {
+  return array.map((a) => a.charAt(0).toUpperCase() + a.substr(1));
+}
+// Set translations.
+Highcharts.setOptions({
+  lang: {
+    months: capitalizeFirstLetter(moment.months()),
+    weekdays: capitalizeFirstLetter(moment.weekdays()),
+    shortMonths: capitalizeFirstLetter(moment.monthsShort()),
+  },
+});
+// Set theme.
 Highcharts.theme = {
   colors: [
     "#ffd300",
