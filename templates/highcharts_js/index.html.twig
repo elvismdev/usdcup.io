@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Historial de Precios{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  {{ encore_entry_link_tags('highcharts') }}
+{% endblock %}
+
+{% block body %}
+<div class="price-history-chart-wrapper">
+    <h2>Historial</h2>
+    <div id="pricehistorychart" style="height: 450px; margin: 0 auto"></div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {{ encore_entry_script_tags('highcharts') }}
+  <script type="text/javascript">
+    $(function(){
+        // the false param is to render without a wrapper function
+        {{ chart(chart, false) }}
+    });
+  </script>
+ {% endblock %}
