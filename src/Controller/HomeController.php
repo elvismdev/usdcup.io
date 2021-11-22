@@ -4,15 +4,24 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\RevolicoService;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\PriceHistory;
 
 class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
-    public function index()
+    public function index(EntityManagerInterface $em)
     {
-        return $this->render('home/index.html.twig');
+        // Get last price logged.
+        $priceHistoryRepository = $em->getRepository(PriceHistory::class);
+        $lastPrice = $priceHistoryRepository->findLastPriceInserted();
+
+        return $this->render('home/index.html.twig', [
+            'average_price' => $lastPrice->getClosingPrice(),
+            'total_ads_evaluated' => $lastPrice->getAdsPricesEval(),
+        ]);
     }
 
 
