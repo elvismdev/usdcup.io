@@ -137,8 +137,11 @@ class RevolicoService
         $variables = [
           'subcategorySlug' => 'compra-venta_divisas',
           'contains' => $this->searchQuery,
-          'priceGte' => $this->priceGte,
-          'priceLte' => $this->priceLte,
+          'price' => [
+              'currency' => 'CUP',
+              'gte' => $this->priceGte,
+              'lte' => $this->priceLte,
+          ],
           'sort' => [
               [
               'order' => 'desc',
