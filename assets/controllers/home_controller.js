@@ -1,17 +1,6 @@
 import { Controller } from "stimulus";
 const { CountUp } = require("countup.js");
 
-// Define an async function
-async function fetchAsync(endpoint) {
-  let uri = "/";
-  uri += endpoint;
-  let response = await fetch(uri, {
-    method: "GET",
-  });
-  let data = await response.json();
-  return data;
-}
-
 // Define countUp function.
 function countUp(e, start, end, decimalPlaces) {
   const options = {
@@ -29,6 +18,10 @@ function countUp(e, start, end, decimalPlaces) {
 
 export default class extends Controller {
   connect() {
+    // Get values from backend.
+    const averagePrice = this.element.dataset.averagePrice;
+    const totalAds = this.element.dataset.totalAds;
+
     var $body = document.querySelector("body");
     var $loadingParagraph = document.getElementById("loading-p");
 
@@ -42,20 +35,17 @@ export default class extends Controller {
       // Get and display Average Price.
       let avPriceElement = document.getElementById("average-price");
       let adsQtyElement = document.getElementById("ads-qty");
-      fetchAsync("api/get_average_price")
-        .then(function (data) {
-          // Remove loading dots.
-          $loadingParagraph.classList.remove("loading-dots");
 
-          // Count up from 0 and display value.
-          countUp(avPriceElement, 0.0, data.average_price, 2);
+      window.setTimeout(function () {
+        // Remove loading dots.
+        $loadingParagraph.classList.remove("loading-dots");
 
-          // Count down from 100.
-          countUp(adsQtyElement, 100, data.total_ads_evaluated, 0);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        // Count up from 0 and display value.
+        countUp(avPriceElement, 0.0, averagePrice, 2);
+
+        // Count down from 100.
+        countUp(adsQtyElement, 100, totalAds, 0);
+      }, Math.floor(Math.random() * 1000) + 1000);
     });
   }
 }

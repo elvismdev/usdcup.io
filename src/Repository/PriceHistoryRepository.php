@@ -37,15 +37,21 @@ class PriceHistoryRepository extends ServiceEntityRepository
         ;
     }
 
-    /*
-    public function findOneBySomeField($value): ?PriceHistory
+    /**
+     * Repository method for finding the newest inserted
+     * entry inside the database. Will return the latest
+     * entry when one is existent, otherwise will return
+     * null.
+     *
+     * @return PriceHistory|null
+     */
+    public function findLastPriceInserted(): ?PriceHistory
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->orderBy('p.id', 'DESC')
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }
