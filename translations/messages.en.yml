@@ -4,7 +4,7 @@ copyright_design: 'Design'
 how_it_works: 'How it Works'
 close_btn: 'Close'
 how_it_works_desc: |
-  <p><strong>USDCUP.info</strong> searches the last 100 ads listed in the currency purchase and sale category on <strong>revolico.com</strong> that contains the word <em>USD</em> and within the price range of <em>$0 - $100</em> CUP.</p>
+  <p><strong>USDCUP.io</strong> searches the last 100 ads listed in the currency purchase and sale category on <strong>revolico.com</strong> that contains the word <em>USD</em> and within the price range of <em>$0 - $100</em> CUP.</p>
 
   <p>Then the list of ads is filtered to remove those that include <a href="%gh_repo_url%/blob/master/config/services.yaml#L15">words</a> in the title that suggest they are NOT exclusively about USD SALE.</p>
 
