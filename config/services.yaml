@@ -51,7 +51,7 @@ parameters:
         - pago
         - recargo
         - recargamos
-    twitter_profile_link: 'https://twitter.com/usdcuc'
+    twitter_profile_link: 'https://twitter.com/usdcup'
 
 
 services:
