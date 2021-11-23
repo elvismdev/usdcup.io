@@ -11,6 +11,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TweetPriceChangeCommand extends Command
 {
@@ -25,13 +26,19 @@ class TweetPriceChangeCommand extends Command
      */
     protected $em;
 
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
     protected static $defaultName = 'app:tweet-price-change';
     protected static $defaultDescription = 'Add a short description for your command';
 
-    public function __construct(ParameterBagInterface $params, EntityManagerInterface $em)
+    public function __construct(ParameterBagInterface $params, EntityManagerInterface $em, TranslatorInterface $translator)
     {
-        $this->params = $params;
-        $this->em     = $em;
+        $this->params     = $params;
+        $this->em         = $em;
+        $this->translator = $translator;
         parent::__construct();
     }
 
@@ -56,6 +63,10 @@ class TweetPriceChangeCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+        // Set twitter emojis.
+        $upPointTriangle = "🔺";
+        $downPointTriangle = "🔻";
+
         // $arg1 = $input->getArgument('arg1');
 
         // if ($arg1) {
@@ -82,7 +93,7 @@ class TweetPriceChangeCommand extends Command
 
         $response = $connection->post(
             'tweets',
-            ["text" => "Hello World! ✅ ✅ #devtesting 📈 📉 \n\n ℹ️ usdcup.io"],
+            ["text" => $this->translator->trans('tweet_text', ['%pointTriangle%' => $upPointTriangle])],
             true
         );
 

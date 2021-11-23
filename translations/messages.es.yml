@@ -16,3 +16,14 @@ how_it_works_desc: |
   <p><code>$promedio = SUM( $precios ) / TOTAL( $anuncios )</code></p>
 
   <p><em>* Este algoritmo basado en los listados de ventas de USD más recientes de Revolico.com, permitiría estimar cómo se negocia actualmente el USD frente al CUP en el mercado informal (la calle). Sin embargo, estos resultados no deben utilizarse como asesoramiento legal, fiscal, de inversión, financiero o de otro tipo. Esta aplicación web es solo un experimento con fines informativos.</em> 💡</p>
+tweet_text: |
+  %pointTriangle% $8.72 (5.78%) Última Semana
+
+  💵 03/08/2021: $1.00 USD ≈ $1.33 CUP
+  💵 19/08/2021: $1.00 USD ≈ $1.43 CUP
+        
+  📈 usdcup.io
+        
+  #ACTUALIZACIÓN 
+  #USD vs #CUP 
+  #usdcup
