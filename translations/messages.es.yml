@@ -1,9 +1,9 @@
-average_price_result: '≈'
+average_price_result: "≈"
 calculation_note: '* según los últimos <span id="ads-qty">100</span> anuncios de venta encontrados en'
-copyright_design: 'Template'
-view_history: 'Ver historial'
-how_it_works: 'Cómo Funciona'
-close_btn: 'Cerrar'
+copyright_design: "Template"
+view_history: "Ver historial"
+how_it_works: "Cómo Funciona"
+close_btn: "Cerrar"
 how_it_works_desc: |
   <p><strong>USDCUP.io</strong> busca los últimos 100 anuncios listados en la categoría de compra y venta de divisas en <strong>revolico.com</strong> que contienen la palabra <em>USD</em> y se encuentran dentro del rango de precios de <em>$0 - $100</em> CUP.</p>
 
@@ -17,12 +17,12 @@ how_it_works_desc: |
 
   <p><em>* Este algoritmo basado en los listados de ventas de USD más recientes de Revolico.com, permitiría estimar cómo se negocia actualmente el USD frente al CUP en el mercado informal (la calle). Sin embargo, estos resultados no deben utilizarse como asesoramiento legal, fiscal, de inversión, financiero o de otro tipo. Esta aplicación web es solo un experimento con fines informativos.</em> 💡</p>
 tweet_text: |
-  %pointTriangle% $8.72 (5.78%) Última Semana
+  %pointTriangle% $%amountChange% (%percentChange%%) Última Semana
 
-  💵 03/08/2021: $1.00 USD ≈ $1.33 CUP
-  💵 19/08/2021: $1.00 USD ≈ $1.43 CUP
+  💵 %todayDate%: $1.00 USD ≈ $%todayPrice% CUP
+  💵 %lastWeekDate%: $1.00 USD ≈ $%lastWeekPrice% CUP
         
-  📈 usdcup.io
+  📈 usdcup.io/history
         
   #ACTUALIZACIÓN 
   #USD vs #CUP 

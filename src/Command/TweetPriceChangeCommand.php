@@ -63,9 +63,15 @@ class TweetPriceChangeCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        // Set twitter emojis.
+        // Set tweet variables.
         $upPointTriangle = "🔺";
         $downPointTriangle = "🔻";
+        $amountChange = 8.72;
+        $percentChange = 5.78;
+        $todayDate = '03/08/2021';
+        $lastWeekDate = '19/08/2021';
+        $todayPrice = 1.33;
+        $lastWeekPrice = 1.43;
 
         // $arg1 = $input->getArgument('arg1');
 
@@ -94,7 +100,19 @@ class TweetPriceChangeCommand extends Command
 
         $response = $connection->post(
             'tweets',
-            ["text" => $this->translator->trans('tweet_text', ['%pointTriangle%' => $upPointTriangle])],
+            ["text" => $this->translator->trans(
+                'tweet_text',
+                [
+                    '%pointTriangle%' => $upPointTriangle,
+                    '%amountChange%' => $amountChange,
+                    '%percentChange%' => $percentChange,
+                    '%todayDate%' => $todayDate,
+                    '%lastWeekDate%' => $lastWeekDate,
+                    '%todayPrice%' => $todayPrice,
+                    '%lastWeekPrice%' => $lastWeekPrice,
+                ]
+            ),
+            ],
             true
         );
 
