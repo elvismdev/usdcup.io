@@ -77,6 +77,7 @@ class TweetPriceChangeCommand extends Command
         //     // ...
         // }
 
+        // Initialize Twitter API client.
         $connection = new TwitterOAuth(
             $this->getParameter('twitter_api_key'),
             $this->getParameter('twitter_api_key_secret'),
