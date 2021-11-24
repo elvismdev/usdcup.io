@@ -106,12 +106,7 @@ class TweetPriceChangeCommand extends Command
         );
         $connection->setApiVersion(2);
 
-        // $content = $connection->get("account/verify_credentials");
-
-        // $statues = $connection->post("statuses/update", ["status" => "hello world"]);
-
-        // $statuses = $connection->get("statuses/home_timeline", ["count" => 25, "exclude_replies" => true]);
-
+        // Send the Tweet.
         $response = $connection->post(
             'tweets',
             ["text" => $this->translator->trans(
@@ -130,9 +125,12 @@ class TweetPriceChangeCommand extends Command
             true
         );
 
-        // var_dump($response);
-
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        // If tweet was published, print a success message. Otherwise print a notice error.
+        if (isset($response->data->id) && !empty($response->data->id)) {
+            $io->success('Tweet posted! '.$this->getParameter('twitter_profile_link').'/status/'.$response->data->id);
+        } else {
+            $io->success('No tweet posted.');
+        }
 
         return Command::SUCCESS;
     }
