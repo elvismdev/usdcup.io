@@ -74,44 +74,46 @@ class TweetPriceChangeCommand extends Command
         $lastWeekPriceHistory = $priceHistoryRepository->findLastWeekPrice();
         $todayPriceHistory = $priceHistoryRepository->findLastPriceInserted();
 
-        // Get dates.
-        $lastWeekDate = $lastWeekPriceHistory->getCreatedAt()->format('d/m/Y');
-        $todayDate = $todayPriceHistory->getCreatedAt()->format('d/m/Y');
+        // Calculate and post to twitter if we have both dates to compare.
+        if ($lastWeekPriceHistory && $todayPriceHistory) {
+            // Get dates.
+            $lastWeekDate = $lastWeekPriceHistory->getCreatedAt()->format('d/m/Y');
+            $todayDate = $todayPriceHistory->getCreatedAt()->format('d/m/Y');
 
-        // Get closing prices.
-        $lastWeekPrice = $lastWeekPriceHistory->getClosingPrice();
-        $todayPrice = $todayPriceHistory->getClosingPrice();
+            // Get closing prices.
+            $lastWeekPrice = $lastWeekPriceHistory->getClosingPrice();
+            $todayPrice = $todayPriceHistory->getClosingPrice();
 
-        // Calculate price change difference.
-        $amountChange = $lastWeekPrice - $todayPrice;
+            // Calculate price change difference.
+            $amountChange = $lastWeekPrice - $todayPrice;
 
-        // Calculate percentage change difference.
-        $percentChange = ($amountChange / $lastWeekPrice) * 100;
+            // Calculate percentage change difference.
+            $percentChange = ($amountChange / $lastWeekPrice) * 100;
 
-        // Set tweet triangle icon if the value is an increase or decrease from previous week.
-        if ($amountChange < 0) {
-            $pointTriangle = $upPointTriangle;
-        } else {
-            $pointTriangle = $downPointTriangle;
-        }
+            // Set tweet triangle icon if the value is an increase or decrease from previous week.
+            if ($amountChange < 0) {
+                $pointTriangle = $upPointTriangle;
+            } else {
+                $pointTriangle = $downPointTriangle;
+            }
 
-        // print_r($lastWeekDate);
+            // print_r($lastWeekDate);
 
-        // Initialize Twitter API client.
-        $connection = new TwitterOAuth(
-            $this->getParameter('twitter_api_key'),
-            $this->getParameter('twitter_api_key_secret'),
-            $this->getParameter('twitter_access_token'),
-            $this->getParameter('twitter_access_token_secret')
-        );
-        $connection->setApiVersion(2);
+            // Initialize Twitter API client.
+            $connection = new TwitterOAuth(
+                $this->getParameter('twitter_api_key'),
+                $this->getParameter('twitter_api_key_secret'),
+                $this->getParameter('twitter_access_token'),
+                $this->getParameter('twitter_access_token_secret')
+            );
+            $connection->setApiVersion(2);
 
-        // Send the Tweet.
-        $response = $connection->post(
-            'tweets',
-            ["text" => $this->translator->trans(
-                'tweet_text',
-                [
+            // Send the Tweet.
+            $response = $connection->post(
+                'tweets',
+                ["text" => $this->translator->trans(
+                    'tweet_text',
+                    [
                     '%pointTriangle%' => $pointTriangle,
                     '%amountChange%' => abs($amountChange),
                     '%percentChange%' => round(abs($percentChange), 2),
@@ -119,17 +121,20 @@ class TweetPriceChangeCommand extends Command
                     '%lastWeekDate%' => $lastWeekDate,
                     '%todayPrice%' => $todayPrice,
                     '%lastWeekPrice%' => $lastWeekPrice,
-                ]
-            ),
-            ],
-            true
-        );
+                    ]
+                ),
+                ],
+                true
+            );
 
-        // If tweet was published, print a success message. Otherwise print a notice error.
-        if (isset($response->data->id) && !empty($response->data->id)) {
-            $io->success('Tweet posted! '.$this->getParameter('twitter_profile_link').'/status/'.$response->data->id);
+            // If tweet was published, print a success message. Otherwise print a notice error.
+            if (isset($response->data->id) && !empty($response->data->id)) {
+                $io->success('Tweet posted! '.$this->getParameter('twitter_profile_link').'/status/'.$response->data->id);
+            } else {
+                $io->note('No tweet posted. Maybe an API error?');
+            }
         } else {
-            $io->success('No tweet posted.');
+            $io->note('No tweet posted. Missing dates to calculate difference.');
         }
 
         return Command::SUCCESS;
