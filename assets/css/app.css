@@ -47,6 +47,6 @@ a.github-corner {
 }
 
 /* Fontawesome icons size fix */
-#footer .fas.fa-tachometer-alt {
+#footer i.fas {
   font-size: 1.25em;
 }
