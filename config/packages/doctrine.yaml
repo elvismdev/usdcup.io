@@ -19,6 +19,7 @@ doctrine:
         dql:
             datetime_functions:
                 unix_timestamp: DoctrineExtensions\Query\Mysql\UnixTimestamp
+                DATE_FORMAT: DoctrineExtensions\Query\Mysql\DateFormat
 
             string_functions:
                 cast: DoctrineExtensions\Query\Mysql\Cast

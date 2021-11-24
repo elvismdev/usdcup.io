@@ -12,6 +12,7 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use App\Entity\PriceHistory;
 
 class TweetPriceChangeCommand extends Command
 {
@@ -66,22 +67,35 @@ class TweetPriceChangeCommand extends Command
         // Set tweet variables.
         $upPointTriangle = "🔺";
         $downPointTriangle = "🔻";
-        $amountChange = 8.72;
-        $percentChange = 5.78;
-        $todayDate = '03/08/2021';
-        $lastWeekDate = '19/08/2021';
-        $todayPrice = 1.33;
-        $lastWeekPrice = 1.43;
+        $pointTriangle = "";
 
-        // $arg1 = $input->getArgument('arg1');
+        // Get last week and current price logged.
+        $priceHistoryRepository = $this->em->getRepository(PriceHistory::class);
+        $lastWeekPriceHistory = $priceHistoryRepository->findLastWeekPrice();
+        $todayPriceHistory = $priceHistoryRepository->findLastPriceInserted();
 
-        // if ($arg1) {
-        //     $io->note(sprintf('You passed an argument: %s', $arg1));
-        // }
+        // Get dates.
+        $lastWeekDate = $lastWeekPriceHistory->getCreatedAt()->format('d/m/Y');
+        $todayDate = $todayPriceHistory->getCreatedAt()->format('d/m/Y');
 
-        // if ($input->getOption('option1')) {
-        //     // ...
-        // }
+        // Get closing prices.
+        $lastWeekPrice = $lastWeekPriceHistory->getClosingPrice();
+        $todayPrice = $todayPriceHistory->getClosingPrice();
+
+        // Calculate price change difference.
+        $amountChange = $lastWeekPrice - $todayPrice;
+
+        // Calculate percentage change difference.
+        $percentChange = ($amountChange / $lastWeekPrice) * 100;
+
+        // Set tweet triangle icon if the value is an increase or decrease from previous week.
+        if ($amountChange < 0) {
+            $pointTriangle = $upPointTriangle;
+        } else {
+            $pointTriangle = $downPointTriangle;
+        }
+
+        // print_r($lastWeekDate);
 
         // Initialize Twitter API client.
         $connection = new TwitterOAuth(
@@ -103,9 +117,9 @@ class TweetPriceChangeCommand extends Command
             ["text" => $this->translator->trans(
                 'tweet_text',
                 [
-                    '%pointTriangle%' => $upPointTriangle,
-                    '%amountChange%' => $amountChange,
-                    '%percentChange%' => $percentChange,
+                    '%pointTriangle%' => $pointTriangle,
+                    '%amountChange%' => abs($amountChange),
+                    '%percentChange%' => round(abs($percentChange), 2),
                     '%todayDate%' => $todayDate,
                     '%lastWeekDate%' => $lastWeekDate,
                     '%todayPrice%' => $todayPrice,
