@@ -12,3 +12,4 @@ twig:
     gh_repo_url: "%gh_repo_url%"
     banned_words: "%banned_words%"
     twitter_profile_link: "%twitter_profile_link%"
+    raygun_api_key: "%env(RAYGUN_API_KEY)%"
