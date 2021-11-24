@@ -54,4 +54,24 @@ class PriceHistoryRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    /**
+     * Find a price recorded in a given last week interval.
+     *
+     *
+     * @return PriceHistory|null
+     */
+    public function findLastWeekPrice(): ?PriceHistory
+    {
+        $date = new \DateTime();
+        $date->modify('-1 week');
+
+        return $this->createQueryBuilder('p')
+            ->where("DATE_FORMAT(p.createdAt, '%Y-%m-%d') = :date")
+            ->setParameter(':date', $date->format('Y-m-d'))
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
