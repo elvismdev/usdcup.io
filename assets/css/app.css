@@ -46,6 +46,10 @@ a.github-corner {
   }
 }
 
+.price-history-chart-wrapper h2 {
+  margin: 0;
+}
+
 /* Fontawesome icons size fix */
 #footer i.fas {
   font-size: 1.25em;
