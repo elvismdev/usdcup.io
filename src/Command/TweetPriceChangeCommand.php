@@ -33,7 +33,7 @@ class TweetPriceChangeCommand extends Command
     private $translator;
 
     protected static $defaultName = 'app:tweet-price-change';
-    protected static $defaultDescription = 'Add a short description for your command';
+    protected static $defaultDescription = 'Tweets a weekly price update to the app Twitter profile feed.';
 
     public function __construct(ParameterBagInterface $params, EntityManagerInterface $em, TranslatorInterface $translator)
     {
@@ -45,10 +45,10 @@ class TweetPriceChangeCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
-        ;
+        // $this
+        //     ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
+        //     ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
+        // ;
     }
 
     /**
@@ -64,10 +64,15 @@ class TweetPriceChangeCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        // Set tweet variables.
-        $upPointTriangle = "🔺";
-        $downPointTriangle = "🔻";
-        $pointTriangle = "";
+
+        // Post to Twitter only on Mondays.
+        // Get current date.
+        $date = new \DateTime();
+        if ((int) $date->format('N') !== 1) {
+            $io->note('No tweet posted. Today is not Tweet Monday.');
+
+            return Command::SUCCESS;
+        }
 
         // Get last week and current price logged.
         $priceHistoryRepository = $this->em->getRepository(PriceHistory::class);
@@ -76,6 +81,11 @@ class TweetPriceChangeCommand extends Command
 
         // Calculate and post to twitter if we have both dates to compare.
         if ($lastWeekPriceHistory && $todayPriceHistory) {
+            // Set tweet variables.
+            $upPointTriangle = "🔺";
+            $downPointTriangle = "🔻";
+            $pointTriangle = "";
+
             // Get dates.
             $lastWeekDate = $lastWeekPriceHistory->getCreatedAt()->format('d/m/Y');
             $todayDate = $todayPriceHistory->getCreatedAt()->format('d/m/Y');
@@ -96,8 +106,6 @@ class TweetPriceChangeCommand extends Command
             } else {
                 $pointTriangle = $downPointTriangle;
             }
-
-            // print_r($lastWeekDate);
 
             // Initialize Twitter API client.
             $connection = new TwitterOAuth(
