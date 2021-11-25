@@ -78,12 +78,12 @@ class PriceHistoryRepository extends ServiceEntityRepository
     /**
      * Find a price recorded the previous day from today.
      *
+     * @param DateTime $date The created date of a current PriceHistory entity.
      *
      * @return PriceHistory|null
      */
-    public function findYesterdayPrice(): ?PriceHistory
+    public function findYesterdayPrice($date): ?PriceHistory
     {
-        $date = new \DateTime();
         $date->modify('-1 day');
 
         return $this->createQueryBuilder('p')
