@@ -53,6 +53,11 @@
 						<span class="label">GitHub</span>
 					</a>
 				</li>
+				<li>
+					<a href="javascript:;" data-micromodal-trigger="modal-2" class="modal-trigger">
+						<i class="fas fa-heart ko-fi"></i>
+					</a>
+				</li>
 				{# <li><a href="mailto:hi@corp.info" class="icon fa-envelope"><span class="label">Email</span></a></li> #}
 				<li>
 					<a href="javascript:;" data-micromodal-trigger="modal-1" class="modal-trigger">{{ 'how_it_works'|trans }}
@@ -81,8 +86,9 @@
 		</footer>
 
 
-		{# Modal #}
+		{# Modals #}
 		{% include 'components/modal.html.twig' %}
+		{% include 'components/modal-donate.html.twig' %}
 
 
 		{% block javascripts %}
@@ -96,5 +102,15 @@ document.getElementById("current-year").innerHTML = currentYear;
 		{% endblock %}
 
 		{{ google_tag_manager_body_end() }}
+
+		<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+		<script>
+			// kofiWidgetOverlay.draw('usdcup', {
+			// 	'type': 'floating-chat',
+			// 	'floating-chat.donateButton.text': 'Donate',
+			// 	'floating-chat.donateButton.background-color': '#000000',
+			// 	'floating-chat.donateButton.text-color': '#fff'
+			// });
+		</script>
 	</body>
 </html>
