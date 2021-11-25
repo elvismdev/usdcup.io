@@ -20,7 +20,7 @@ class HomeController extends AbstractController
         $averagePrice = $lastPrice->getClosingPrice();
 
         // Get yesterday's price.
-        $yesterdayPrice = $priceHistoryRepository->findYesterdayPrice();
+        $yesterdayPrice = $priceHistoryRepository->findYesterdayPrice($lastPrice->getCreatedAt());
 
         // Set amount and percent change vars.
         $amountChange = 0;
