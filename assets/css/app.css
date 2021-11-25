@@ -16,6 +16,14 @@ h2 {
   font-size: 0.8em !important;
 }
 
+.kofiframe-bottom-profile-link {
+  text-align: center;
+}
+
+.modal__content.donate {
+  margin-bottom: 0;
+}
+
 .calculation-note {
   font-size: 0.9em !important;
 }
