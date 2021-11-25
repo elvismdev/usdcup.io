@@ -1,3 +1,21 @@
+h2 {
+  margin: 0;
+  line-height: 0.8em;
+}
+
+.collapse {
+  margin: 0 0 1.5em 0;
+}
+
+.collapse-wrapper {
+  overflow: hidden;
+  transition: height 300ms ease-in;
+}
+
+.price-today-change {
+  font-size: 0.8em !important;
+}
+
 .calculation-note {
   font-size: 0.9em !important;
 }

@@ -17,10 +17,39 @@ class HomeController extends AbstractController
         // Get last price logged.
         $priceHistoryRepository = $em->getRepository(PriceHistory::class);
         $lastPrice = $priceHistoryRepository->findLastPriceInserted();
+        $averagePrice = $lastPrice->getClosingPrice();
+
+        // Get yesterday's price.
+        $yesterdayPrice = $priceHistoryRepository->findYesterdayPrice();
+
+        // Set amount and percent change vars.
+        $amountChange = 0;
+        $percentChange = 0;
+        $faCaret = 'down';
+
+        // If we have an average price and the yesterday's price, calculate the difference for printing.
+        if ($averagePrice && $yesterdayPrice) {
+            // Get yesterday closing price.
+            $yesterdayPrice = $yesterdayPrice->getClosingPrice();
+
+            // Calculate price change difference.
+            $amountChange = $yesterdayPrice - $averagePrice;
+
+            // Calculate percentage change difference.
+            $percentChange = ($amountChange / $yesterdayPrice) * 100;
+
+            // Set tweet triangle icon if the value is an increase or decrease from yesterday.
+            if ($amountChange < 0) {
+                $faCaret = 'up';
+            }
+        }
 
         return $this->render('home/index.html.twig', [
-            'average_price' => $lastPrice->getClosingPrice(),
+            'average_price' => $averagePrice,
             'total_ads_evaluated' => $lastPrice->getAdsPricesEval(),
+            'amount_change' => abs($amountChange),
+            'percent_change' => round(abs($percentChange), 2),
+            'fa_caret' => $faCaret,
         ]);
     }
 
