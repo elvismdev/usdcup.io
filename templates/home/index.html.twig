@@ -3,8 +3,14 @@
 {% block body %}
 	<!-- Header -->
 	<header id="header">
-		<div data-controller="home" data-average-price="{{ average_price }}" data-total-ads="{{ total_ads_evaluated }}"></div>
+		<div data-controller="home" data-average-price="{{ average_price }}" data-total-ads="{{ total_ads_evaluated }}" data-amount-change="{{ amount_change }}" data-percent-change="{{ percent_change }}"></div>
 		<h2 id="loading-p" class="loading-dots">$1.00 USD {{ 'average_price_result'|trans }} $<span id="average-price">0.00</span> CUP</h2>
+
+		<div class="collapse">
+			<div class="collapse-wrapper">
+					<p class="price-today-change collapse-content"><i class="fas fa-caret-{{ fa_caret }}"></i> $<span id="amount-change">0.00</span> (<span id="percent-change">0.00</span>%) Hoy</p>
+			</div>
+		</div>
 
 		<p class="calculation-note"><em>{{ 'calculation_note'|trans|raw }} <a target="_blank" href='{{ search_page_url }}?q="{{ search_text }}" {{ banned_words|prefix_banned_words|join(' ') }}&min_price={{ min_price }}&max_price={{ max_price }}'>revolico.com/compra-venta/divisas/</a></em></p>
 

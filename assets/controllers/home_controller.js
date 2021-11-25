@@ -21,9 +21,35 @@ export default class extends Controller {
     // Get values from backend.
     const averagePrice = this.element.dataset.averagePrice;
     const totalAds = this.element.dataset.totalAds;
+    const amountChange = this.element.dataset.amountChange;
+    const percentChange = this.element.dataset.percentChange;
 
     var $body = document.querySelector("body");
     var $loadingParagraph = document.getElementById("loading-p");
+
+    // Set collapse effect for price difference display.
+    const collapse = document.querySelector(".collapse");
+    const wrapper = document.querySelector(".collapse-wrapper");
+    const content = document.querySelector(".collapse-content");
+    let open = false;
+
+    collapse.style.minHeight = `${content.getBoundingClientRect().height}px`;
+
+    // Set initial height to content height, if shown by default
+    if (!open) {
+      wrapper.style.height = "0px";
+    }
+
+    function toggleOpen() {
+      if (!open) {
+        const height = content.getBoundingClientRect().height;
+        wrapper.style.height = `${height}px`;
+        open = true;
+      } else {
+        wrapper.style.height = "0px";
+        open = false;
+      }
+    }
 
     // Do stuff after page is fully loaded.
     window.addEventListener("load", function () {
@@ -35,6 +61,8 @@ export default class extends Controller {
       // Get and display Average Price.
       let avPriceElement = document.getElementById("average-price");
       let adsQtyElement = document.getElementById("ads-qty");
+      let amountChangeElement = document.getElementById("amount-change");
+      let percentChangeElement = document.getElementById("percent-change");
 
       window.setTimeout(function () {
         // Remove loading dots.
@@ -45,6 +73,11 @@ export default class extends Controller {
 
         // Count down from 100.
         countUp(adsQtyElement, 100, totalAds, 0);
+
+        // Count up price difference values.
+        toggleOpen();
+        countUp(amountChangeElement, 0.0, amountChange, 2);
+        countUp(percentChangeElement, 0.0, percentChange, 2);
       }, Math.floor(Math.random() * 1000) + 1000);
     });
   }

@@ -56,7 +56,7 @@ class PriceHistoryRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find a price recorded in a given last week interval.
+     * Find a price recorded last week from today.
      *
      *
      * @return PriceHistory|null
@@ -65,6 +65,26 @@ class PriceHistoryRepository extends ServiceEntityRepository
     {
         $date = new \DateTime();
         $date->modify('-1 week');
+
+        return $this->createQueryBuilder('p')
+            ->where("DATE_FORMAT(p.createdAt, '%Y-%m-%d') = :date")
+            ->setParameter(':date', $date->format('Y-m-d'))
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    /**
+     * Find a price recorded the previous day from today.
+     *
+     *
+     * @return PriceHistory|null
+     */
+    public function findYesterdayPrice(): ?PriceHistory
+    {
+        $date = new \DateTime();
+        $date->modify('-1 day');
 
         return $this->createQueryBuilder('p')
             ->where("DATE_FORMAT(p.createdAt, '%Y-%m-%d') = :date")
