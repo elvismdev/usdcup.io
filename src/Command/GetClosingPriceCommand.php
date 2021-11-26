@@ -12,6 +12,7 @@ use App\Entity\PriceHistory;
 use App\Service\RevolicoService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Input\ArrayInput;
 
 class GetClosingPriceCommand extends Command
 {
@@ -88,6 +89,10 @@ class GetClosingPriceCommand extends Command
                     $averagePriceResults['pricesQty']
                 )
             );
+
+            // Tweet price update.
+            $dailyTweetCommand = $this->getApplication()->find('app:tweet-daily-price-change');
+            $returnCode = $dailyTweetCommand->run(new ArrayInput([]), $output);
         } else {
             $io->success('No average price found to record on the price history table.');
         }
