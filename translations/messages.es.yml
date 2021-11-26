@@ -19,8 +19,18 @@ how_it_works_desc: |
 tweet_text: |
   %pointTriangle% $%amountChange% (%percentChange%%) Última Semana
 
-  💵 %todayDate%: $1.00 USD ≈ $%todayPrice% CUP
-  💵 %lastWeekDate%: $1.00 USD ≈ $%lastWeekPrice% CUP
+  🪙 %todayDate%: $1.00 USD ≈ $%todayPrice% CUP
+  🪙 %lastWeekDate%: $1.00 USD ≈ $%lastWeekPrice% CUP
+        
+  📈 usdcup.io/history
+        
+  #ACTUALIZACIÓN 
+  #USD vs #CUP 
+  #usdcup
+tweet_daily_text: |
+  %pointTriangle% $%amountChange% (%percentChange%%) Hoy
+
+  🪙 $1.00 USD ≈ $%todayPrice% CUP
         
   📈 usdcup.io/history
         
