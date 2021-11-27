@@ -123,7 +123,7 @@ class TweetPriceChangeCommand extends Command
                     'tweet_text',
                     [
                     '%pointTriangle%' => $pointTriangle,
-                    '%amountChange%' => abs($amountChange),
+                    '%amountChange%' => round(abs($amountChange), 2),
                     '%percentChange%' => round(abs($percentChange), 2),
                     '%todayDate%' => $todayDate,
                     '%lastWeekDate%' => $lastWeekDate,

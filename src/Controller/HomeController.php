@@ -47,7 +47,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'average_price' => $averagePrice,
             'total_ads_evaluated' => $lastPrice->getAdsPricesEval(),
-            'amount_change' => abs($amountChange),
+            'amount_change' => round(abs($amountChange), 2),
             'percent_change' => round(abs($percentChange), 2),
             'fa_caret' => $faCaret,
         ]);

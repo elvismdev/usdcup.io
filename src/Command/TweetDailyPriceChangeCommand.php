@@ -110,7 +110,7 @@ class TweetDailyPriceChangeCommand extends Command
                     'tweet_daily_text',
                     [
                     '%pointTriangle%' => $pointTriangle,
-                    '%amountChange%' => abs($amountChange),
+                    '%amountChange%' => round(abs($amountChange), 2),
                     '%percentChange%' => round(abs($percentChange), 2),
                     '%todayPrice%' => $todayPrice,
                     ]
