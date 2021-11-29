@@ -53,11 +53,11 @@
 						<span class="label">GitHub</span>
 					</a>
 				</li>
-				<li>
+				{# <li>
 					<a href="javascript:;" data-micromodal-trigger="modal-2" class="modal-trigger">
 						<i class="fas fa-heart ko-fi"></i>
 					</a>
-				</li>
+				</li> #}
 				{# <li><a href="mailto:hi@corp.info" class="icon fa-envelope"><span class="label">Email</span></a></li> #}
 				<li>
 					<a href="javascript:;" data-micromodal-trigger="modal-1" class="modal-trigger">{{ 'how_it_works'|trans }}
@@ -88,7 +88,7 @@
 
 		{# Modals #}
 		{% include 'components/modal.html.twig' %}
-		{% include 'components/modal-donate.html.twig' %}
+		{# {% include 'components/modal-donate.html.twig' %} #}
 
 
 		{% block javascripts %}
