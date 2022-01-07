@@ -144,8 +144,12 @@ class RevolicoService
           ],
           'sort' => [
               [
-              'order' => 'desc',
-              'field' => 'relevance',
+                'order' => 'desc',
+                'field' => 'updated_on_to_order_date',
+              ],
+              [
+                'order' => 'desc',
+                'field' => 'relevance',
               ],
           ],
           'page' => 1,
