@@ -177,11 +177,15 @@ class RevolicoService
     {
         // Add all available prices to a single array list.
         $pricesList = [];
-        foreach ($this->adsList as $ad) {
-            // Continue to next element if Ad is NOT set in CUP, or listed price is above of our set max price limit.
+        foreach ($this->adsList as $key => $ad) {
+            // Continue to next element if Ad is NOT set in CUP, or listed price is above of our set max price limit, or value is just 1.
             if ($ad['node']['currency'] !== 'CUP'
                 || $ad['node']['price'] > $this->priceLte
+                || (int) $ad['node']['price'] === 1
             ) {
+                // Remove this ad from the Ads list collection since we won't need it.
+                unset($this->adsList[$key]);
+                // Continue to next Ad.
                 continue;
             }
 
@@ -198,6 +202,31 @@ class RevolicoService
         return [
           'pricesQty' => $pricesQty,
           'averagePrice' => $averagePrice,
+        ];
+    }
+
+    public function findMinMaxPriceAds()
+    {
+        // Sort Ads list by price.
+        usort(
+            $this->adsList,
+            function ($a, $b) {
+                return $a['node']['price'] <=> $b['node']['price'];
+            }
+        );
+
+        // Get max value Ad.
+        $minPriceAd = $this->adsList[0];
+        $maxPriceAd = end($this->adsList);
+
+        // Set base URL.
+        $baseURL = 'https://www.revolico.com';
+
+        return [
+          'maxPriceAd' => $maxPriceAd['node']['price'],
+          'minPriceAd' => $minPriceAd['node']['price'],
+          'maxPriceAdUrl' => $baseURL.$maxPriceAd['node']['permalink'],
+          'minPriceAdUrl' => $baseURL.$minPriceAd['node']['permalink'],
         ];
     }
 }

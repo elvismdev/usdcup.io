@@ -41,6 +41,26 @@ class PriceHistory
      */
     private $unixCreatedAt;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $maxPriceAd;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $minPriceAd;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $maxPriceAdUrl;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $minPriceAdUrl;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +110,54 @@ class PriceHistory
     public function setUnixCreatedAt(string $unixCreatedAt): self
     {
         $this->unixCreatedAt = $unixCreatedAt;
+
+        return $this;
+    }
+
+    public function getMaxPriceAd(): ?int
+    {
+        return $this->maxPriceAd;
+    }
+
+    public function setMaxPriceAd(int $maxPriceAd): self
+    {
+        $this->maxPriceAd = $maxPriceAd;
+
+        return $this;
+    }
+
+    public function getMinPriceAd(): ?int
+    {
+        return $this->minPriceAd;
+    }
+
+    public function setMinPriceAd(int $minPriceAd): self
+    {
+        $this->minPriceAd = $minPriceAd;
+
+        return $this;
+    }
+
+    public function getMaxPriceAdUrl(): ?string
+    {
+        return $this->maxPriceAdUrl;
+    }
+
+    public function setMaxPriceAdUrl(string $maxPriceAdUrl): self
+    {
+        $this->maxPriceAdUrl = $maxPriceAdUrl;
+
+        return $this;
+    }
+
+    public function getMinPriceAdUrl(): ?string
+    {
+        return $this->minPriceAdUrl;
+    }
+
+    public function setMinPriceAdUrl(string $minPriceAdUrl): self
+    {
+        $this->minPriceAdUrl = $minPriceAdUrl;
 
         return $this;
     }

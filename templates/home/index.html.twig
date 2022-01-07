@@ -3,12 +3,12 @@
 {% block body %}
 	<!-- Header -->
 	<header id="header">
-		<div data-controller="home" data-average-price="{{ average_price }}" data-total-ads="{{ total_ads_evaluated }}" data-amount-change="{{ amount_change }}" data-percent-change="{{ percent_change }}"></div>
+		<div data-controller="home" data-average-price="{{ average_price }}" data-total-ads="{{ total_ads_evaluated }}" data-amount-change="{{ amount_change }}" data-percent-change="{{ percent_change }}" data-max-price-ad="{{ max_price_ad }}" data-min-price-ad="{{ min_price_ad }}"></div>
 		<h2 id="loading-p" class="loading-dots">$1.00 USD {{ 'average_price_result'|trans }} $<span id="average-price">0.00</span> CUP</h2>
 
 		<div class="collapse">
 			<div class="collapse-wrapper">
-					<p class="price-today-change collapse-content"><i class="fas fa-caret-{{ fa_caret }}"></i> $<span id="amount-change">0.00</span> (<span id="percent-change">0.00</span>%) Hoy</p>
+					<p class="price-today-change collapse-content"><i class="fas fa-caret-{{ fa_caret }}"></i> $<span id="amount-change">0.00</span> (<span id="percent-change">0.00</span>%) Hoy &nbsp; | &nbsp; Mín. <a target="_blank" href="{{ min_price_ad_url }}">$<span id="min-price-ad">00</span></a> &nbsp; | &nbsp; Máx. <a target="_blank" href="{{ max_price_ad_url }}">$<span id="max-price-ad">00</span></a></p>
 			</div>
 		</div>
 
