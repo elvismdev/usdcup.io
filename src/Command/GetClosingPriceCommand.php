@@ -71,11 +71,18 @@ class GetClosingPriceCommand extends Command
         $averagePriceResults = $revolicoService->findAveragePrice();
 
         if (isset($averagePriceResults['pricesQty']) && isset($averagePriceResults['averagePrice'])) {
+            // Find min and max ad prices.
+            $minMaxPriceAds = $revolicoService->findMinMaxPriceAds();
+
             $priceHistory = new PriceHistory();
             $priceHistory->setCurrency('USD');
             $priceHistory->setUnixCreatedAt(round(microtime(true) * 1000));
             $priceHistory->setClosingPrice(round($averagePriceResults['averagePrice'], 2));
             $priceHistory->setAdsPricesEval($averagePriceResults['pricesQty']);
+            $priceHistory->setMaxPriceAd($minMaxPriceAds['maxPriceAd']);
+            $priceHistory->setMinPriceAd($minMaxPriceAds['minPriceAd']);
+            $priceHistory->setMaxPriceAdUrl($minMaxPriceAds['maxPriceAdUrl']);
+            $priceHistory->setMinPriceAdUrl($minMaxPriceAds['minPriceAdUrl']);
 
             // Tell doctrine we want to save priceHistory.
             $this->em->persist($priceHistory);

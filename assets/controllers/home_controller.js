@@ -23,8 +23,8 @@ export default class extends Controller {
     const totalAds = this.element.dataset.totalAds;
     const amountChange = this.element.dataset.amountChange;
     const percentChange = this.element.dataset.percentChange;
-    const maxPrice = this.element.dataset.maxPrice;
-    const minPrice = this.element.dataset.minPrice;
+    const maxPrice = this.element.dataset.maxPriceAd;
+    const minPrice = this.element.dataset.minPriceAd;
 
     var $body = document.querySelector("body");
     var $loadingParagraph = document.getElementById("loading-p");
@@ -65,8 +65,8 @@ export default class extends Controller {
       let adsQtyElement = document.getElementById("ads-qty");
       let amountChangeElement = document.getElementById("amount-change");
       let percentChangeElement = document.getElementById("percent-change");
-      let maxPriceElement = document.getElementById("max-price");
-      let minPriceElement = document.getElementById("min-price");
+      let maxPriceElement = document.getElementById("max-price-ad");
+      let minPriceElement = document.getElementById("min-price-ad");
 
       window.setTimeout(function () {
         // Remove loading dots.

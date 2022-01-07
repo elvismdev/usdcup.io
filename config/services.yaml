@@ -55,6 +55,7 @@ parameters:
         - pago
         - recargo
         - recargamos
+        - mlc
     twitter_profile_link: 'https://twitter.com/usdcup'
 
 
