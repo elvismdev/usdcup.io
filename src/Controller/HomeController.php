@@ -44,13 +44,20 @@ class HomeController extends AbstractController
             }
         }
 
-        return $this->render('home/index.html.twig', [
-            'average_price' => $averagePrice,
-            'total_ads_evaluated' => $lastPrice->getAdsPricesEval(),
-            'amount_change' => round(abs($amountChange), 2),
-            'percent_change' => round(abs($percentChange), 2),
-            'fa_caret' => $faCaret,
-        ]);
+        return $this->render(
+            'home/index.html.twig',
+            [
+                'average_price' => $averagePrice,
+                'total_ads_evaluated' => $lastPrice->getAdsPricesEval(),
+                'amount_change' => round(abs($amountChange), 2),
+                'percent_change' => round(abs($percentChange), 2),
+                'max_price' => 70,
+                'min_price' => 64,
+                'max_price_ad_url' => 'https://www.google.com',
+                'min_price_ad_url' => 'https://www.google.com',
+                'fa_caret' => $faCaret,
+            ]
+        );
     }
 
 
