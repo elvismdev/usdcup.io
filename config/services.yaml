@@ -30,11 +30,13 @@ parameters:
         - peso
         - pesos
         - mexicanos
+        - mxn
         - canadiense
         - canadienses
         - envia
         - envía
         - enviamos
+        - enviale
         - envio
         - envío
         - necesito
@@ -47,12 +49,17 @@ parameters:
         - doy
         - remesa
         - remesas
+        - remesass
         - transfiero
         - transferencia
+        - transferecia
+        - tarjeta
+        - tarjetas
         - credito
         - depósito
         - deposito
         - pago
+        - recarga
         - recargo
         - recargamos
         - mlc
