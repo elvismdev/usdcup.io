@@ -51,10 +51,10 @@ class HomeController extends AbstractController
                 'total_ads_evaluated' => $lastPrice->getAdsPricesEval(),
                 'amount_change' => round(abs($amountChange), 2),
                 'percent_change' => round(abs($percentChange), 2),
-                'max_price_ad' => 70,
-                'min_price_ad' => 64,
-                'max_price_ad_url' => 'https://www.google.com',
-                'min_price_ad_url' => 'https://www.google.com',
+                'max_price_ad' => $lastPrice->getMaxPriceAd(),
+                'min_price_ad' => $lastPrice->getMinPriceAd(),
+                'max_price_ad_url' => $lastPrice->getMaxPriceAdUrl(),
+                'min_price_ad_url' => $lastPrice->getMinPriceAdUrl(),
                 'fa_caret' => $faCaret,
             ]
         );
