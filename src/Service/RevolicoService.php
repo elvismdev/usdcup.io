@@ -185,7 +185,7 @@ class RevolicoService
             // Continue to next element if Ad is NOT set in CUP, or listed price is above of our set max price limit, or value is just 1.
             if ($ad['node']['currency'] !== 'CUP'
                 || $ad['node']['price'] > $this->priceLte
-                || (int) $ad['node']['price'] === 1
+                || (int) $ad['node']['price'] <= 1
             ) {
                 // Remove this ad from the Ads list collection since we won't need it.
                 unset($this->adsList[$key]);
