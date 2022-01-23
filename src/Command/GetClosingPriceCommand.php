@@ -49,12 +49,24 @@ class GetClosingPriceCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        // Get last price logged.
+        $priceHistoryRepository = $this->em->getRepository(PriceHistory::class);
+        $lastPrice = $priceHistoryRepository->findLastPriceInserted();
+        $lastAveragePrice = $lastPrice->getClosingPrice();
+
+        // Sum the third of the last average price value to set it as the max price parameter for the remote search query.
+        $thirdLastAveragePrice = $lastAveragePrice / 3;
+        $maxPrice = $lastAveragePrice + $thirdLastAveragePrice;
+
+        // Round up max price to the nearest 10.
+        $maxPrice = ceil($maxPrice / 10) * 10;
+
         // Initialize platform service.
         $revolicoService = new RevolicoService(
             $this->getParameter('banned_words'),
             $this->getParameter('search_text'),
             $this->getParameter('min_price'),
-            $this->getParameter('max_price'),
+            $maxPrice,
             $this->getParameter('ad_platform_graphql_endpoint'),
             $this->getParameter('user_agent')
         );
