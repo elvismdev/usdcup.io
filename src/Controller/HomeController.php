@@ -6,6 +6,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Service\RevolicoService;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\PriceHistory;
+use App\Util\UtilityBox;
 
 class HomeController extends AbstractController
 {
@@ -18,6 +19,9 @@ class HomeController extends AbstractController
         $priceHistoryRepository = $em->getRepository(PriceHistory::class);
         $lastPrice = $priceHistoryRepository->findLastPriceInserted();
         $averagePrice = $lastPrice->getClosingPrice();
+
+        // Calculate a max price value.
+        $calcMaxPrice = UtilityBox::generateMaxPrice($averagePrice);
 
         // Get yesterday's price.
         $yesterdayPrice = $priceHistoryRepository->findYesterdayPrice($lastPrice->getCreatedAt());
@@ -56,6 +60,7 @@ class HomeController extends AbstractController
                 'max_price_ad_url' => $lastPrice->getMaxPriceAdUrl(),
                 'min_price_ad_url' => $lastPrice->getMinPriceAdUrl(),
                 'fa_caret' => $faCaret,
+                'calc_max_price' => $calcMaxPrice,
             ]
         );
     }

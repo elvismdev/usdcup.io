@@ -55,15 +55,15 @@ class GetClosingPriceCommand extends Command
         $lastPrice = $priceHistoryRepository->findLastPriceInserted();
         $lastAveragePrice = $lastPrice->getClosingPrice();
 
-        // Create a max price value.
-        $maxPrice = UtilityBox::generateMaxPrice($lastAveragePrice);
+        // Calculate a max price value.
+        $calcMaxPrice = UtilityBox::generateMaxPrice($lastAveragePrice);
 
         // Initialize platform service.
         $revolicoService = new RevolicoService(
             $this->getParameter('banned_words'),
             $this->getParameter('search_text'),
             $this->getParameter('min_price'),
-            $maxPrice,
+            $calcMaxPrice,
             $this->getParameter('ad_platform_graphql_endpoint'),
             $this->getParameter('user_agent')
         );
