@@ -17,55 +17,10 @@ parameters:
     max_price: 150
     platform_name: 'USDCUP.io'
     gh_repo_url: 'https://github.com/elvismdev/usdcup.io'
-    banned_words:
-        - cambio
-        - compro
-        - compró
-        - conpro
-        - comprando
-        - comprar
-        - busco
-        - euro
-        - euros
-        - peso
-        - pesos
-        - mexicanos
-        - mxn
-        - canadiense
-        - canadienses
-        - envia
-        - envía
-        - enviamos
-        - enviale
-        - envio
-        - envío
-        - necesito
-        - nesecita
-        - nesecito
-        - libra
-        - esterlina
-        - entrego
-        - entrega
-        - doy
-        - remesa
-        - remesas
-        - remesass
-        - transfiero
-        - transferencia
-        - transferecia
-        - tarjeta
-        - tarjetas
-        - credito
-        - depósito
-        - deposito
-        - pago
-        - pagamos
-        - recarga
-        - recargo
-        - recargamos
-        - mlc
     twitter_profile_link: 'https://twitter.com/usdcup'
 
+imports:
+    - {resource: 'banned_words.yaml'}
 
 services:
     # default configuration for services in *this* file
