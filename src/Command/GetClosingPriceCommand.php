@@ -13,6 +13,7 @@ use App\Service\RevolicoService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Input\ArrayInput;
+use App\Util\UtilityBox;
 
 class GetClosingPriceCommand extends Command
 {
@@ -54,12 +55,8 @@ class GetClosingPriceCommand extends Command
         $lastPrice = $priceHistoryRepository->findLastPriceInserted();
         $lastAveragePrice = $lastPrice->getClosingPrice();
 
-        // Sum the third of the last average price value to set it as the max price parameter for the remote search query.
-        $thirdLastAveragePrice = $lastAveragePrice / 3;
-        $maxPrice = $lastAveragePrice + $thirdLastAveragePrice;
-
-        // Round up max price to the nearest 10.
-        $maxPrice = ceil($maxPrice / 10) * 10;
+        // Create a max price value.
+        $maxPrice = UtilityBox::generateMaxPrice($lastAveragePrice);
 
         // Initialize platform service.
         $revolicoService = new RevolicoService(
