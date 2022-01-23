@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Ob\HighchartsBundle\Highcharts\Highstock;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\PriceHistory;
+use App\Util\UtilityBox;
 
 class HighchartsJSController extends AbstractController
 {
@@ -18,6 +19,15 @@ class HighchartsJSController extends AbstractController
     {
 
         $priceHistoryRepository = $em->getRepository(PriceHistory::class);
+
+        // Get last price logged.
+        $lastPrice = $priceHistoryRepository->findLastPriceInserted();
+        $averagePrice = $lastPrice->getClosingPrice();
+
+        // Calculate a max price value.
+        $calcMaxPrice = UtilityBox::generateMaxPrice($averagePrice);
+
+        // Get all price history.
         $allPriceHistory = $priceHistoryRepository->findAllAsArray();
 
         $data = [];
@@ -49,6 +59,7 @@ class HighchartsJSController extends AbstractController
 
         return $this->render('highcharts_js/index.html.twig', [
             'chart' => $ob,
+            'calc_max_price' => $calcMaxPrice,
         ]);
     }
 }

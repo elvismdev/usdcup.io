@@ -13,6 +13,7 @@ use App\Service\RevolicoService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Input\ArrayInput;
+use App\Util\UtilityBox;
 
 class GetClosingPriceCommand extends Command
 {
@@ -49,12 +50,20 @@ class GetClosingPriceCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        // Get last price logged.
+        $priceHistoryRepository = $this->em->getRepository(PriceHistory::class);
+        $lastPrice = $priceHistoryRepository->findLastPriceInserted();
+        $lastAveragePrice = $lastPrice->getClosingPrice();
+
+        // Calculate a max price value.
+        $calcMaxPrice = UtilityBox::generateMaxPrice($lastAveragePrice);
+
         // Initialize platform service.
         $revolicoService = new RevolicoService(
             $this->getParameter('banned_words'),
             $this->getParameter('search_text'),
             $this->getParameter('min_price'),
-            $this->getParameter('max_price'),
+            $calcMaxPrice,
             $this->getParameter('ad_platform_graphql_endpoint'),
             $this->getParameter('user_agent')
         );
