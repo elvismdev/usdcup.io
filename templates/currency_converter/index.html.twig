@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Conversor de Monedas
+{% endblock %}
+
+{% block body %}
+	<div class="currency-converter" {{ stimulus_controller('currency-converter', { lastPrice: last_price|serialize('json', { groups: 'priceHistory:read' } ) }) }}></div>
+{% endblock %}

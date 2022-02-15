@@ -15,6 +15,8 @@
 		<p class="calculation-note"><em>{{ 'calculation_note'|trans|raw }} <a target="_blank" href='{{ search_page_url }}?q="{{ search_text }}" {{ banned_words|prefix_banned_words|join(' ') }}&min_price={{ min_price }}&max_price={{ calc_max_price }}&currency=CUP&order=date'>revolico.com/compra-venta/divisas/</a></em></p>
 
 		<p class="calculation-note"><a href="{{ path('history') }}">{{ 'view_history'|trans|raw }} <i class="fas fa-chart-line"></i></a></p>
+
+		<p class="calculation-note"><a href="{{ path('currency_converter') }}">{{ 'calculator'|trans|raw }} <i class="fas fa-calculator"></i></a></p>
 	</header>
 
 {% endblock %}
