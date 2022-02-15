@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PriceHistoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PriceHistoryRepository::class)
@@ -28,6 +29,7 @@ class PriceHistory
 
     /**
      * @ORM\Column(type="float")
+     * @Groups("priceHistory:read")
      */
     private $closingPrice;
 

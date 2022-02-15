@@ -29,6 +29,7 @@ class CurrencyConverterController extends AbstractController
         return $this->render(
             'currency_converter/index.html.twig', [
             'calc_max_price' => $calcMaxPrice,
+            'last_price' => $lastPrice
             ]
         );
     }

@@ -4,7 +4,14 @@ import React from "react";
 import CurrencyConverter from "../components/currency_converter/CurrencyConverter";
 
 export default class extends Controller {
+  static values = {
+    lastPrice: Object,
+  };
+
   connect() {
-    ReactDOM.render(<CurrencyConverter />, this.element);
+    ReactDOM.render(
+      <CurrencyConverter lastPrice={this.lastPriceValue} />,
+      this.element
+    );
   }
 }
