@@ -1,3 +1,5 @@
+[![SWUbanner](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
+
 # usdcup.io
 Web app that calculate and tracks the average price of the USD vs CUP by reading ads from popular classified website https://www.revolico.com/.
 
